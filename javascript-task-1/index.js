@@ -39,5 +39,8 @@ const maxItemAssociation = (array) => {
     return Array.from(unique).sort();
 }
 
+
 console.log(maxItemAssociation(arr));
+
+
 console.log(maxItemAssociation(arr2));
