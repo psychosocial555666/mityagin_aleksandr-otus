@@ -42,3 +42,6 @@ promiseReduce(
   1
 )
   .then(console.log)
+
+
+  // Доработка
