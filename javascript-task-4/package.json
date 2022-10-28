@@ -6,6 +6,7 @@
   "scripts": {
     "test": "test",
     "tree": "node index.js"
+
   },
   "author": "",
   "license": "ISC"

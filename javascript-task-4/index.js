@@ -2,7 +2,7 @@ const { readdir } = require('node:fs/promises');
 
 const fs = require('fs');
 
-const pathToFolder = process.env.npm_config_path;
+const pathToFolder = process.argv[2];
 
 const result = {
     files: [],
