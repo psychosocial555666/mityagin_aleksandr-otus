@@ -1,0 +1,11 @@
+{
+  "name": "javascript-task-5",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "start": "node --max-old-space-size=50 script.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
