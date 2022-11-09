@@ -1,70 +1,131 @@
-const fs = require('fs');
 const readline = require('readline');
+const fs = require('fs');
 
-const readStream1 = fs.createReadStream(__dirname + '/static/numbers1.txt', { encoding: 'utf8', highWaterMark: 1 });
-const readStream2 = fs.createReadStream(__dirname + '/static/numbers2.txt', { encoding: 'utf8', highWaterMark: 1 });
-const readStream3 = fs.createReadStream(__dirname + '/static/numbers3.txt', { encoding: 'utf8', highWaterMark: 1 });
-const readStream4 = fs.createReadStream(__dirname + '/static/numbers4.txt', { encoding: 'utf8', highWaterMark: 1 });
-const writeStream = fs.createWriteStream(__dirname + '/static/output.txt', { encoding: 'utf8' });
+const MAX_SIZE = 104857600;
+const BUFFER_SIZE = 1048576;
+const MAX_NUMBER = 130000;
 
+function randomInteger(min, max) {
+    let rand = min - 0.5 + Math.random() * (max - min + 1);
+    return Math.round(rand);
+}
+
+let current = 0;
+let done = 0;
+const interval = setInterval(() => console.log('Write origin file', Math.floor(current / MAX_SIZE * 100), '% completed'), 1000)
+let interval2;
+const write = (writer, data) => {
+    current += data.length;
+    if (!writer.write(data)) {
+        return new Promise((resolve) => {
+            writer.once('drain', resolve)
+        })
+    }
+}
+
+const create = async () => {
+    const write_stream = fs.createWriteStream('numbers')
+    while (current < MAX_SIZE) {
+        const promise = write(write_stream, randomInteger(1, MAX_NUMBER) + '\n')
+        if (promise) {
+            await promise;
+        }
+    }
+    write_stream.close();
+}
+
+const split = async () => {
+    let counter = 0;
+    const readStream = fs.createReadStream('numbers', { highWaterMark: BUFFER_SIZE });
+    readStream.on('data', (chunk) => {
+        counter++;
+        const part = chunk.toString().split('\n').filter(item => item !== '');
+        if (part.length > 0 && counter <= MAX_SIZE / BUFFER_SIZE) {
+            part.sort((a, b) => a - b);
+            readStream.pause();
+            const writeStream = fs.createWriteStream('files/numbers' + counter);
+            writeStream.write(part.join('\n'));
+            writeStream.close();
+            readStream.resume();
+        }
+    })
+    const onEnd = () => {
+        readStream.close()
+        console.log('File split complete');
+        sortAndJoin();
+    }
+    readStream.on('end', onEnd)
+}
+
+const streams = [];
 const bufferArray = [];
 let iteration = 0;
+let numberOfFiles = 0;
+const commonWriteStream = fs.createWriteStream(__dirname + '/output.txt', { encoding: 'utf8' });
 
 const sortArray = () => {
     const min = Math.min(...bufferArray);
     const index = bufferArray.findIndex(item => item === min)
     bufferArray.splice(index, 1);
-    if (min) writeStream.write(min + '\n');
-    if(iteration%140000 === 0) console.log((iteration * 100)/ 14000000, '%' )
+    if (min) {
+        const result = min + '\n';
+        done += result.length;
+        commonWriteStream.write(result);
+    } 
     if(bufferArray.length === 0) {
-        writeStream.close();
-        readStream1.close();
-        readStream2.close();
-        readStream3.close();
-        readStream4.close();
+        commonWriteStream.close();
+        console.log('All done!!!')
+        clearInterval(interval2)
     }
 }
 
-const pushTheItem = (number, readStream, nextStream) => {
+const pushTheItem = (number, rl) => {
     bufferArray.push(number);
     iteration += 1;
-    if (iteration > 20) sortArray();
-    if(!readStream.ended) readStream.pause();
-    if(readStream.needToClear) {
+    if (iteration > numberOfFiles * 10) sortArray();
+    rl.resume();
+    if(streams.length === 0) {
         do{
             sortArray();
         } while (bufferArray.length > 0) 
     }
-    nextStream.resume();
 }
 
-const readFile = async (readStream, nextStream) => {
+const readFile = async (readStream) => {
     const rl = readline.createInterface({
         input: readStream
     });
-    
+
+    readStream.on('end', () => {
+        const ind = streams.findIndex(stream => readStream.path === stream.path)
+        streams.splice(ind, 1)
+        readStream.close();
+    })
+
     for await (const chunk of rl) {
-        await pushTheItem(Number(chunk), readStream, nextStream);
+        rl.pause();
+        pushTheItem(Number(chunk), rl);
     }
 }
 
-(async () => {
-    readFile(readStream1, readStream2);
-    readFile(readStream2, readStream3);
-    readFile(readStream3, readStream4);
-    readFile(readStream4, readStream1);
+const sortAndJoin = async () => {
+    interval2 = setInterval(() => console.log('Write result file', Math.floor(done / MAX_SIZE * 100), '% completed'), 1000)
+    fs.readdir('files', (err, files) => {
+        numberOfFiles = files.length;
+        files.forEach((filename) => {
+            const readStream = fs.createReadStream(__dirname + "/files/" + filename, { encoding: 'utf8', highWaterMark: 1 });
+            streams.push(readStream);
+        })
+        streams.forEach((stream, index) => {
+            readFile(stream, index);
+        })
+    })
+};
 
-    readStream1.on('end', () => {
-        readStream2.ended = true;
-    });
-    readStream2.on('end', () => {
-        readStream3.ended = true;
-    });
-    readStream3.on('end', () => {
-        readStream4.ended = true;
-    });
-    readStream4.on('end', () => {
-        readStream4.needToClear = true;
-    });
-    writeStream.on('end', () => console.log(bufferArray))
-})()
+(async () => {
+    await create();
+    clearInterval(interval);
+    console.log('File creation complete');
+    await split();
+})();
+
