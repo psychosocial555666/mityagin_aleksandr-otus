@@ -36,18 +36,20 @@ const create = async () => {
 
 const split = async () => {
     let counter = 0;
+    let lastElem = '';
     const readStream = fs.createReadStream('numbers', { highWaterMark: BUFFER_SIZE });
     readStream.on('data', (chunk) => {
         counter++;
-        const part = chunk.toString().split('\n').filter(item => item !== '');
-        if (part.length > 0 && counter <= MAX_SIZE / BUFFER_SIZE) {
-            part.sort((a, b) => a - b);
-            readStream.pause();
-            const writeStream = fs.createWriteStream('files/numbers' + counter);
-            writeStream.write(part.join('\n'));
-            writeStream.close();
-            readStream.resume();
-        }
+        const string = lastElem + chunk.toString();
+        const arr = string.split('\n');
+        lastElem = arr.pop();
+        const part = arr.filter(item => item !== '');
+        part.sort((a, b) => a - b);
+        readStream.pause();
+        const writeStream = fs.createWriteStream('files/numbers' + counter);
+        writeStream.write(part.join('\n'));
+        writeStream.close();
+        readStream.resume();
     })
     const onEnd = () => {
         readStream.close()
@@ -71,8 +73,8 @@ const sortArray = () => {
         const result = min + '\n';
         done += result.length;
         commonWriteStream.write(result);
-    } 
-    if(bufferArray.length === 0) {
+    }
+    if (bufferArray.length === 0) {
         commonWriteStream.close();
         console.log('All done!!!')
         clearInterval(interval2)
@@ -84,10 +86,10 @@ const pushTheItem = (number, rl) => {
     iteration += 1;
     if (iteration > numberOfFiles * 10) sortArray();
     rl.resume();
-    if(streams.length === 0) {
-        do{
+    if (streams.length === 0) {
+        do {
             sortArray();
-        } while (bufferArray.length > 0) 
+        } while (bufferArray.length > 0)
     }
 }
 
@@ -123,6 +125,9 @@ const sortAndJoin = async () => {
 };
 
 (async () => {
+    fs.mkdir('files', err => {
+        if (err) console.log('Files folder already exist!');
+    });
     await create();
     clearInterval(interval);
     console.log('File creation complete');
