@@ -9,7 +9,7 @@ export const resolvers = {
   Query: {
     getUsers: async () => await User.find({}).exec(),
     getUserById: async (_, args) => await User.findById(args.id),
-    getOrderById: async (_, args) => await Order.findById(args.id),
+    getOrderById: async (_, args) => await Order.findById(args.id).populate('products'),
     getOrdersByUserId: async (_, args) => await Order.find({ userId: args.userId }),
     getProducts: async () => await Product.find({}).exec(),
     getProductById: async (_, args) => await Product.findById(args.id),
@@ -42,8 +42,8 @@ export const resolvers = {
     addProductToOrder: async (_, args) => {
       try {
         const product = await Product.findById(mongoose.Types.ObjectId(args.productId));
-        const orderUpdate = await Order.updateOne({_id: mongoose.Types.ObjectId(args.orderId)}, {$push: {products: product} } );
-        const order = await Order.findById(mongoose.Types.ObjectId(args.orderId));
+        await Order.updateOne({_id: mongoose.Types.ObjectId(args.orderId)}, {$push: {products: product} } );
+        const order = await Order.findById(mongoose.Types.ObjectId(args.orderId)).populate('products');
         return order;
       } catch (e) {
         return e.message;
