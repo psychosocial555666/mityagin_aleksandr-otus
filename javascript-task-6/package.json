@@ -1,0 +1,18 @@
+{
+  "name": "javascript-task-6",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.2.2",
+    "graphql": "^16.6.0",
+    "mongoose": "^6.7.5",
+    "nodemon": "^2.0.20"
+  }
+}

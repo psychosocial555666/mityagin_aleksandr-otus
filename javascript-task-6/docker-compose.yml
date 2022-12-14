@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+
+  my-database:
+    container_name: my-database
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - my-app-network
+
+networks:
+  my-app-network:
+    driver: bridge
