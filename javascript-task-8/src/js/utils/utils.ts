@@ -1,7 +1,7 @@
 import { PRICE_TO_DISCONT, MONTHS_IN_YEAR, CAPITAL_SUM, creditTypes, MAX_PERCENT, mortgagePercents, PERCENT_FROM_INCOME, autoPercents } from "../const";
 import { CreditTypesType } from "../types";
 
-export const extend = (a: object, b: object) => {
+export const extend = (a: any, b: any) => {
   return Object.assign({}, a, b);
 };
 
@@ -122,7 +122,7 @@ export const returnCorrectValue = (value: string, minValue: number, maxValue: nu
     return result = minValue;
   }
 
-  return String(result);
+  // return String(result);
 }
 
 export const increasePrice = (value: string, step: number, maxValue: number) => {

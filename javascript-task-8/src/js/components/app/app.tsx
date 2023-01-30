@@ -1,22 +1,25 @@
 import Header from "../header/header";
 import Slider from "../slider/slider";
-import Services from "../services/services.jsx";
+import Services from "../services/services";
 import Map from "../map/map";
 import Modal from "../modal/modal";
-import {connect} from "react-redux";
-import {getModalType} from "../../reducer/ui/selectors";
+import { connect } from "react-redux";
+import { getModalType } from "../../reducer/ui/selectors";
 import Footer from "../footer/footer";
 import Calculator from "../calculator/calculator";
-import {ModalType} from "../../const";
-import PropTypes from 'prop-types';
+import { ModalType } from "../../const";
+import { IState, ModalTypesType } from "../../types";
 
-function App(props) {
+interface AppProps {
+  modalType: ModalTypesType;
+}
 
-  const {modalType} = props;
+function App(props: AppProps) {
+  const { modalType } = props;
 
   return (
     <div className="app">
-      {modalType !== ModalType.NONE ? <Modal /> : ''}
+      {modalType !== ModalType.NONE ? <Modal /> : ""}
       <Header />
       <main>
         <Slider />
@@ -29,13 +32,9 @@ function App(props) {
       <Footer />
     </div>
   );
-};
+}
 
-App.propTypes = {
-  modalType: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: IState) => ({
   modalType: getModalType(state),
 });
 

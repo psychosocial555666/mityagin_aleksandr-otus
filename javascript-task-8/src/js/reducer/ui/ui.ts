@@ -1,11 +1,11 @@
 import { AnyAction } from "redux";
-import { creditTypes, ModalType, TabType } from "../../const.js";
+import { creditTypes, ModalType, TabType } from "../../const";
 import { CreditParametersType, CreditTypesType, ModalTypesType, TabTypesType } from "../../types.js";
 import {
   countRequestNumber,
   extend,
   initiateParameters,
-} from "../../utils/utils.js";
+} from "../../utils/utils";
 
 const ActionType = {
   CHANGE_MENU_STATUS: `CHANGE_MENU_STATUS`,
