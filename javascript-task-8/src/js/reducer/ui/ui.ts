@@ -1,5 +1,11 @@
+import { AnyAction } from "redux";
 import { creditTypes, ModalType, TabType } from "../../const.js";
-import { countRequestNumber, extend, initiateParameters } from "./../../utils/utils.js";
+import { CreditParametersType, CreditTypesType, ModalTypesType, TabTypesType } from "../../types.js";
+import {
+  countRequestNumber,
+  extend,
+  initiateParameters,
+} from "../../utils/utils.js";
 
 const ActionType = {
   CHANGE_MENU_STATUS: `CHANGE_MENU_STATUS`,
@@ -12,7 +18,7 @@ const ActionType = {
   SET_TAB_TYPE: `SET_TAB_TYPE`,
   SET_CREDIT_TYPE: `SET_CREDIT_TYPE`,
   UPDATE_CREDIT_PARAMETRES: `UPDATE_CREDIT_PARAMETRES`,
-  INCREASE_REQUEST_NUMBER: 'INCREASE_REQUEST_NUMBER',
+  INCREASE_REQUEST_NUMBER: "INCREASE_REQUEST_NUMBER",
   CHANGE_REQUEST_STATUS: `CHANGE_REQUEST_STATUS`,
 };
 
@@ -26,118 +32,117 @@ const initialState = {
   isCreditTypeSelectOpened: false,
   tabType: TabType.DEPOSITS,
   currentCreditType: creditTypes.NONE,
-  creditParameters: {},
+  creditParameters: null,
   isRequestOpened: false,
-  requestNumber: '0001',
+  requestNumber: "0001",
 };
 
 const ActionCreator = {
-
-  toggleMenu: (status) => ({
+  toggleMenu: (status: boolean) => ({
     type: ActionType.CHANGE_MENU_STATUS,
     payload: !status,
   }),
-  changeModalType: (type) => ({
+  changeModalType: (type: ModalTypesType) => ({
     type: ActionType.CHANGE_MODAL_TYPE,
     payload: type,
   }),
-  changeCreditSelectStatus: (status) => ({
+  changeCreditSelectStatus: (status: boolean) => ({
     type: ActionType.CHANGE_CREDIT_SELECT_STATUS,
     payload: !status,
   }),
-  setTabType: (type) => ({
+  setTabType: (type: TabTypesType) => ({
     type: ActionType.SET_TAB_TYPE,
     payload: type,
   }),
-  changeLoginValidity: (status) => ({
+  changeLoginValidity: (status: boolean) => ({
     type: ActionType.CHANGE_LOGIN_VALIDITY,
     payload: status,
   }),
-  changePasswordValidity: (status) => ({
+  changePasswordValidity: (status: boolean) => ({
     type: ActionType.CHANGE_PASSWORD_VALIDITY,
     payload: status,
   }),
-  changePasswordShowStatus: (status) => ({
+  changePasswordShowStatus: (status: boolean) => ({
     type: ActionType.CHANGE_PASSWORD_SHOW_STATUS,
     payload: status,
   }),
-  changeLoginFormValidity: (status) => ({
+  changeLoginFormValidity: (status: boolean) => ({
     type: ActionType.CHANGE_LOGIN_FORM_VALIDITY,
     payload: status,
   }),
-  setCreditType: (type) => ({
+  setCreditType: (type: CreditTypesType) => ({
     type: ActionType.SET_CREDIT_TYPE,
     payload: type,
   }),
-  updateCreditParameters: (parameters) => ({
+  updateCreditParameters: (parameters: CreditParametersType) => ({
     type: ActionType.UPDATE_CREDIT_PARAMETRES,
     payload: parameters,
   }),
-  increaseRequestNumber: (number) => ({
+  increaseRequestNumber: (number: number) => ({
     type: ActionType.INCREASE_REQUEST_NUMBER,
     payload: countRequestNumber(number),
   }),
-  changeRequestStatus: (status) => ({
+  changeRequestStatus: (status: boolean) => ({
     type: ActionType.CHANGE_REQUEST_STATUS,
     payload: status,
   }),
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ActionType.CHANGE_MENU_STATUS:
       return extend(state, {
-        isMenuOpened: action.payload,
+        isMenuOpened: action["payload"],
       });
     case ActionType.CHANGE_MODAL_TYPE:
       return extend(state, {
-        modalType: action.payload,
+        modalType: action["payload"],
       });
     case ActionType.CHANGE_CREDIT_SELECT_STATUS:
       return extend(state, {
-        isCreditTypeSelectOpened: action.payload,
+        isCreditTypeSelectOpened: action["payload"],
       });
     case ActionType.SET_TAB_TYPE:
       return extend(state, {
-        tabType: action.payload,
+        tabType: action["payload"],
       });
     case ActionType.SET_CREDIT_TYPE:
       return extend(state, {
-        currentCreditType: action.payload,
-        creditParameters: initiateParameters(action.payload),
+        currentCreditType: action["payload"],
+        creditParameters: initiateParameters(action["payload"]),
       });
     case ActionType.CHANGE_LOGIN_VALIDITY:
       return extend(state, {
-        isLoginValid: action.payload,
+        isLoginValid: action["payload"],
       });
     case ActionType.CHANGE_PASSWORD_VALIDITY:
       return extend(state, {
-        isPasswordValid: action.payload,
+        isPasswordValid: action["payload"],
       });
     case ActionType.CHANGE_PASSWORD_SHOW_STATUS:
       return extend(state, {
-        isPasswordShown: action.payload,
+        isPasswordShown: action["payload"],
       });
     case ActionType.CHANGE_LOGIN_FORM_VALIDITY:
       return extend(state, {
-        isLoginFormValid: action.payload,
+        isLoginFormValid: action["payload"],
       });
     case ActionType.UPDATE_CREDIT_PARAMETRES:
       return extend(state, {
-        creditParameters: action.payload,
+        creditParameters: action["payload"],
       });
     case ActionType.INCREASE_REQUEST_NUMBER:
       return extend(state, {
-        requestNumber: action.payload,
+        requestNumber: action["payload"],
       });
     case ActionType.CHANGE_REQUEST_STATUS:
       return extend(state, {
-        isRequestOpened: action.payload,
+        isRequestOpened: action["payload"],
       });
 
     default:
       return state;
-  };
+  }
 };
 
 export { reducer, ActionType, ActionCreator };

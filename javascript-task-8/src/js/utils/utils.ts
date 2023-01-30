@@ -1,10 +1,11 @@
 import { PRICE_TO_DISCONT, MONTHS_IN_YEAR, CAPITAL_SUM, creditTypes, MAX_PERCENT, mortgagePercents, PERCENT_FROM_INCOME, autoPercents } from "../const";
+import { CreditTypesType } from "../types";
 
-export const extend = (a, b) => {
+export const extend = (a: object, b: object) => {
   return Object.assign({}, a, b);
 };
 
-export const initiateParameters = (type) => {
+export const initiateParameters = (type: CreditTypesType) => {
   if (type === creditTypes.MORTGAGE) {
     return (
       {
@@ -59,16 +60,16 @@ export const initiateParameters = (type) => {
   };
 }
 
-export const percentToSum = (price, percent) => {
+export const percentToSum = (price: number, percent: number) => {
   return (Number(price) * Number(percent)) / MAX_PERCENT;
 }
 
-export const sumToPercent = (price, initial) => {
+export const sumToPercent = (price: number, initial: number) => {
   let result = (Number(initial) * MAX_PERCENT) / Number(price);
   return Math.round(result / 5) * 5;
 }
 
-export const maskThisValue = (value, string) => {
+export const maskThisValue = (value: string, string: string) => {
   let valueArray = value.split("").reverse();
   let newValue = valueArray.map((item, i) => {
     if (i % 3 === 0) {
@@ -80,7 +81,7 @@ export const maskThisValue = (value, string) => {
   return newValue + string;
 };
 
-export const maskThisTime = (time) => {
+export const maskThisTime = (time: number) => {
   let result;
   switch (time) {
     case 1:
@@ -106,11 +107,11 @@ export const maskThisTime = (time) => {
   return result;
 }
 
-export const checkValueValidity = (value, minValue, maxValue) => {
+export const checkValueValidity = (value: string, minValue: number, maxValue: number) => {
   return Number(value) > Number(maxValue) || Number(value) < Number(minValue) ? true : false;
 }
 
-export const returnCorrectValue = (value, minValue, maxValue) => {
+export const returnCorrectValue = (value: string, minValue: number, maxValue: number) => {
   let result = Number(value);
 
   if (result > Number(maxValue)) {
@@ -124,7 +125,7 @@ export const returnCorrectValue = (value, minValue, maxValue) => {
   return String(result);
 }
 
-export const increasePrice = (value, step, maxValue) => {
+export const increasePrice = (value: string, step: number, maxValue: number) => {
   let result = Number(value) + step;
 
   if (result > Number(maxValue)) {
@@ -134,7 +135,7 @@ export const increasePrice = (value, step, maxValue) => {
   return String(result);
 }
 
-export const reducePrice = (value, step, minValue) => {
+export const reducePrice = (value: string, step: number, minValue: number) => {
   let result = Number(value) - step;
 
   if (result < Number(minValue)) {
@@ -143,11 +144,11 @@ export const reducePrice = (value, step, minValue) => {
   return String(result);
 }
 
-export const returnMortgagePercent = (initial) => {
+export const returnMortgagePercent = (initial: number) => {
   return initial >= 15 ? mortgagePercents.MIN : mortgagePercents.MAX;
 }
 
-export const countRequestNumber = (number) => {
+export const countRequestNumber = (number: number) => {
   let numberResult = String(Number(number) + 1);
   let numberArr = numberResult.split('');
   let maskArr = ['0', '0', '0', '0',];
@@ -156,7 +157,7 @@ export const countRequestNumber = (number) => {
   return result;
 }
 
-export const returnAutoPercent = (price, casco, insurance) => {
+export const returnAutoPercent = (price: number, casco: boolean, insurance: boolean) => {
   if (casco && insurance) {
     return autoPercents.MIN;
   }
@@ -172,7 +173,7 @@ export const returnAutoPercent = (price, casco, insurance) => {
   return autoPercents.REDUCED;
 }
 
-export const returnMortgageSum = (price, initial, capital, minSum) => {
+export const returnMortgageSum = (price: number, initial: number, capital: boolean, minSum: number) => {
   let initialSum = percentToSum(price, initial);
   let creditSum = Number(price) - initialSum - (capital ? CAPITAL_SUM : 0);
 
@@ -183,7 +184,7 @@ export const returnMortgageSum = (price, initial, capital, minSum) => {
   return String(creditSum);
 }
 
-export const returnAutoSum = (price, initial, minSum) => {
+export const returnAutoSum = (price: number, initial: number, minSum: number) => {
   let initialSum = percentToSum(price, initial);
   let creditSum = Number(price) - initialSum;
 
@@ -194,19 +195,19 @@ export const returnAutoSum = (price, initial, minSum) => {
   return String(creditSum);
 }
 
-export const returnMonthlyCreditPercent = (percent) => {
+export const returnMonthlyCreditPercent = (percent: number) => {
   return (percent / MAX_PERCENT) / MONTHS_IN_YEAR;
 }
 
-export const returnTimeInMonths = (time) => {
+export const returnTimeInMonths = (time: number) => {
   return time * MONTHS_IN_YEAR;
 }
 
-export const calculatePayment = (sum, monthlyPercent, timeInMonths) => {
+export const calculatePayment = (sum: number, monthlyPercent: number, timeInMonths: number) => {
   let payment = Number(sum) * (monthlyPercent + (monthlyPercent / (Math.pow(1 + monthlyPercent, timeInMonths) - 1)));
   return String(Math.round(payment));
 }
 
-export const calculateMinIncome = (payment) => {
+export const calculateMinIncome = (payment: number) => {
   return String(Math.round(Number(payment) / PERCENT_FROM_INCOME));
 }
