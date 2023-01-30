@@ -1,0 +1,25 @@
+.socials {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-column-gap: 15px;
+  padding: 0;
+  padding-top: 11px;
+  margin: 0;
+  list-style: none;
+}
+
+.socials__item {
+  &:hover,
+  &:focus {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: $tablet) {
+  .socials {
+    padding-top: 0;
+    position: relative;
+    top: -3px;
+    grid-column-gap: 20px;
+  }
+}
