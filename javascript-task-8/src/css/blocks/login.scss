@@ -1,0 +1,148 @@
+.login {
+  background-color: $background;
+  border: 4px solid $accent;
+  padding: 60px;
+  width: 544px;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__logo {
+  width: 150px;
+  height: 27px;
+  margin-bottom: 36px;
+}
+
+.login__item {
+  display: flex;
+  flex-direction: column-reverse;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 140%;
+
+  input {
+    padding: 19px 24px;
+    border: 1px solid $text-color;
+    background-color: transparent;
+    border-radius: 4px;
+  }
+
+  label {
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+}
+
+.login__item--invalid {
+  input {
+    box-shadow: 0 0 5px 1px rgb(252, 30, 30);
+  }
+}
+
+.login__item--login {
+  margin-bottom: 23px;
+}
+
+.login__item--password {
+  margin-bottom: 8px;
+  position: relative;
+
+  button {
+    position: absolute;
+    bottom: 24px;
+    right: 24px;
+    background-color: transparent;
+    border: none;
+    width: 22px;
+    height: 12px;
+    cursor: pointer;
+
+    &:active {
+      filter: blur(4px);
+    }
+  }
+}
+
+.login__forget {
+  font-size: 12px;
+  color: #707C87;
+  text-decoration: none;
+  text-align: right;
+  margin-bottom: 29px;
+  align-self: flex-end;
+
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+.login__close {
+  position: absolute;
+  top: 55px;
+  right: 55px;
+  padding: 0;
+  margin: 0;
+  width: 26px;
+  height: 26px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: $tablet) {
+  .login {
+    width: 678px;
+    padding: 60px 88px;
+  }
+
+  .login__close {
+    right: 83px;
+  }
+}
+
+@media (max-width: $mobile) {
+  .login {
+    width: calc(100% - 30px);
+    padding: 50px 20px;
+  }
+
+  .login__logo {
+    margin-bottom: 26px;
+  }
+
+  .login__item--login {
+    margin-bottom: 13px;
+  }
+
+  .login__item--password {
+    margin-bottom: 30px;
+  }
+
+  .login__close {
+    top: 45px;
+    right: 15px;
+  }
+
+  .login__forget {
+    order: 2;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .login__submit {
+    margin-bottom: 12px;
+  }
+}

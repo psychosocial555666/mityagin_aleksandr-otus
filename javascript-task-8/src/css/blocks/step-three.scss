@@ -1,0 +1,217 @@
+.step-three {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 32px;
+  margin-bottom: 38px;
+}
+
+.step-three__content {
+  padding: 64px 70px 70px;
+  background-color: $background;
+  width: 770px;
+
+  h3 {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 140%;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+}
+
+.step-three__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.step-three__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: 1px solid $lines-dark;
+
+  span {
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 140%;
+    color: $label;
+  }
+
+  p {
+    padding: 0;
+    margin: 0;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 140%;
+  }
+}
+
+.step-three__form {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.step-three__input {
+  width: 300px;
+  margin-bottom: 30px;
+
+  input {
+    padding: 18px 24px;
+    margin: 0;
+    width: 100%;
+    border: 1px solid $text-color;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 140%;
+
+    &:hover,
+    &:focus {
+      border: 1px solid $accent;
+    }
+  }
+}
+
+.step-three__input--invalid {
+  position: relative;
+
+  input {
+    border: 1px solid red;
+    box-shadow: 0 0 5px 0 red;
+
+    &:hover,
+    &:focus {
+      border: 1px solid red;
+      box-shadow: 0 0 5px 0 red;
+    }
+  }
+
+  &::before {
+    content: 'Заполните это поле';
+    position: absolute;
+    bottom: -20px;
+    right: 0;
+    color: red;
+    font-size: 12px;
+  }
+}
+
+.step-three__input--name {
+  width: 100%;
+}
+
+.step-three__input--tel {
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.step-three__form--invalid {
+  animation: wrong 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes wrong {
+  10%,
+  90% {
+    transform: translate(-1%, 0%);
+  }
+
+  20%,
+  80% {
+    transform: translate( 1%, 0%);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate(-2%, 0%);
+  }
+
+  40%,
+  60% {
+    transform: translate(2%, 0%);
+  }
+}
+
+.step-three__submit {
+  width: 198px;
+}
+
+@media (max-width: $tablet) {
+  .step-three {
+    padding-top: 0;
+    margin-bottom: 0;
+  }
+
+  .step-three__content {
+    padding: 40px 45px 14px;
+    background-color: $white;
+    width: 100%;
+
+    h3 {
+      font-size: 18px;
+      text-align: center;
+      margin-bottom: 26px;
+    }
+  }
+
+  .step-three__input {
+    width: 47.8%;
+  }
+
+  .step-three__input--name {
+    width: 100%;
+  }
+
+  .step-three__submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: $mobile) {
+  .step-three__content {
+    padding: 22px 15px;
+
+    h3 {
+      font-size: 16px;
+      margin-bottom: 19px;
+    }
+  }
+
+  .step-three__item {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 14px 0;
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .step-three__input {
+    width: 100%;
+    margin-bottom: 20px;
+
+    input {
+      padding: 18px 14px;
+    }
+  }
+
+  .step-three__input--email {
+    margin-bottom: 30px;
+  }
+
+  .step-three__submit {
+    height: 51px;
+  }
+}

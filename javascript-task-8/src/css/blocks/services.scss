@@ -1,0 +1,74 @@
+.services {
+  width: 100%;
+  padding: 61px 0;
+}
+
+.services__controls {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.services__control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  padding: 29px 0 30px;
+  cursor: pointer;
+
+  img {
+    margin-right: 10px;
+  }
+
+  span {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 21px;
+  }
+
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
+}
+
+.services__control--active {
+  background-color: $background;
+  cursor: not-allowed;
+  &:hover,
+  &:focus {
+    opacity: 1;
+  }
+}
+
+.services__point {
+  background: $accent-dark;
+  border-radius: 50%;
+  margin-right: 8px;
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  vertical-align: middle;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.services__point--active {
+  background-color: #E0E0E0;
+}
+
+@media (max-width: $tablet) {
+  .services {
+    padding: 0;
+  }
+}
+@media (max-width: $mobile) {
+  .services__point {
+    width: 6px;
+    height: 6px;
+    margin-right: 6px;
+  }
+}
