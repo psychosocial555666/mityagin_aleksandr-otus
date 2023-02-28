@@ -5,13 +5,17 @@ import { Box, IconButton, Paper } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Outlet, Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+import { CityType } from "../../utils/types";
 
-function App() {
-  const { citiesList } = useLoaderData();
-  const [selected, setSelected] = useState();
+export function App() {
+  const { citiesList } = useLoaderData() as { citiesList: CityType[] };
+  const [selected, setSelected] = useState<string | null>(null);
 
-  const changeHandler = (evt, option) => {
-    setSelected(option.id);
+  const changeHandler = (
+    evt: React.SyntheticEvent<Element, Event>,
+    option: CityType | null
+  ) => {
+    option && setSelected(option.id);
   };
 
   return (
@@ -21,7 +25,7 @@ function App() {
           autoHighlight
           size="small"
           options={citiesList}
-          getOptionLabel={(option) => option.city}
+          getOptionLabel={(option) => option.city || ''}
           onChange={changeHandler}
           sx={{ flexGrow: 1 }}
           renderOption={(props, option) => (
@@ -43,5 +47,3 @@ function App() {
     </Box>
   );
 }
-
-export default App;

@@ -1,10 +1,12 @@
 import moment from "moment";
 import 'moment/locale/ru'
+import { CityType, WeatherItemType } from "../utils/types";
+import { WeatherRawDataType } from "./types";
 
 export const apiKey =
   "a51b9034-a86a-11ed-bce5-0242ac130002-a51b90de-a86a-11ed-bce5-0242ac130002";
 
-const filterData = (data) => {
+const filterData = (data: WeatherRawDataType[]) => {
   const filtered = data.filter(
     (item) =>
       new Date(item.time).getHours() === 0 ||
@@ -25,8 +27,8 @@ const filterData = (data) => {
 
   const SIZE = 4;
 
-  const result = filtered.reduce(
-    (p, c) => {
+  const result: WeatherItemType[][] = filtered.reduce(
+    (p: WeatherItemType[][], c) => {
       if (p[p.length - 1].length === SIZE) {
         p.push([]);
       }
@@ -35,11 +37,10 @@ const filterData = (data) => {
     },
     [[]]
   );
-  console.log(result);
   return result;
 };
 
-export const getWeatherData = async (city, callback) => {
+export const getWeatherData = async (city: CityType, callback: (data: WeatherItemType[][]) => void) => {
   const { lat, lng } = city;
   const start = moment().startOf("day").toISOString();
   const end = moment().startOf("day").add(7, "days").toISOString();
