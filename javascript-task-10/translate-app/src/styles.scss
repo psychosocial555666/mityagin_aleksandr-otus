@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'Nunito';
+  font-weight: normal;
+  src: url('./assets/Nunito-Regular.ttf');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-weight: light;
+  src: url('./assets/Nunito-Light.ttf');
+}
+@font-face {
+  font-family: 'Nunito';
+  font-weight: bold;
+  src: url('./assets/Nunito-Bold.ttf');
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  font-family: 'Nunito';
+}
