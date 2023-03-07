@@ -7,6 +7,8 @@ import { RecentlyAddedComponent } from '../components/recently-added/recently-ad
 import { GoComponent } from '../components/go/go.component';
 import { SetiingsComponent } from '../components/setiings/setiings.component';
 import { HeaderComponent } from '../components/header/header.component';
+import { NotFoundComponent } from '../components/not-found/not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,13 @@ import { HeaderComponent } from '../components/header/header.component';
     RecentlyAddedComponent,
     GoComponent,
     SetiingsComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
