@@ -1,16 +1,11 @@
-import { createBrowserRouter, LoaderFunctionArgs } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { App } from "../components/App/App";
 import { ErrorPage } from "../components/ErrorPage/ErrorPage";
 import { Weather } from "../components/Weather/Weather";
-import { cities } from "../utils/cities";
+import { rootLoader, cityLoader } from "../utils/utils";
+import { storageController } from "../utils/cities";
 
-export const rootLoader = () => {
-  return { citiesList: cities };
-};
-
-export const cityLoader = ({ params }: LoaderFunctionArgs) => {
-  return cities.find((item) => item.id === params.id);
-}
+storageController.init();
 
 export const router = createBrowserRouter([
   {

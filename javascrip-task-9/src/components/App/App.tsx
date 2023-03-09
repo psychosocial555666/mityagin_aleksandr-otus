@@ -1,13 +1,18 @@
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { FC, useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Box, IconButton, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Outlet, Link } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
 import { CityType } from "../../utils/types";
+import {
+  StyledIconButton,
+  StyledPaper,
+  TitleBox,
+} from "../../styles/StyledComponents";
 
-export function App() {
+export const App: FC = () => {
   const { citiesList } = useLoaderData() as { citiesList: CityType[] };
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -19,13 +24,13 @@ export function App() {
   };
 
   return (
-    <Box sx={{ p: 2 }}>
-      <Paper sx={{ p: 2, mt: 1, display: "flex", flexGrow: 1 }} elevation={6}>
+    <TitleBox>
+      <StyledPaper elevation={6}>
         <Autocomplete
           autoHighlight
           size="small"
           options={citiesList}
-          getOptionLabel={(option) => option.city || ''}
+          getOptionLabel={(option) => option.city || ""}
           onChange={changeHandler}
           sx={{ flexGrow: 1 }}
           renderOption={(props, option) => (
@@ -38,12 +43,16 @@ export function App() {
           )}
         />
         <Link to={`weather/${selected}`}>
-          <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+          <StyledIconButton
+            type="button"
+            sx={{ p: "10px" }}
+            aria-label="search"
+          >
             <SearchIcon />
-          </IconButton>
+          </StyledIconButton>
         </Link>
-      </Paper>
+      </StyledPaper>
       <Outlet />
-    </Box>
+    </TitleBox>
   );
-}
+};

@@ -1,12 +1,12 @@
 import Grid from "@mui/material/Grid";
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { getWeatherData } from "../../utils/utils";
 import { Today } from "../Today/Today";
 import { DayOfWeek } from "../DayOfWeek/DayOfWeek";
 import { CityType, WeatherItemType } from "../../utils/types";
 
-export const Weather = () => {
+export const Weather: FC = () => {
   const city = useLoaderData() as CityType;
   const [data, setData] = useState<WeatherItemType[][]>([]);
 

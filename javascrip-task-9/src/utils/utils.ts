@@ -1,29 +1,41 @@
 import moment from "moment";
-import 'moment/locale/ru'
+import "moment/locale/ru";
+import { LoaderFunctionArgs } from "react-router";
 import { CityType, WeatherItemType } from "../utils/types";
+import { storageController } from "./cities";
 import { WeatherRawDataType } from "./types";
+
+export const rootLoader = () => {
+  return { citiesList: storageController.getCities() };
+};
+
+export const cityLoader = ({ params }: LoaderFunctionArgs) => {
+  return params.id && storageController.getCity(params.id);
+};
 
 export const apiKey =
   "a51b9034-a86a-11ed-bce5-0242ac130002-a51b90de-a86a-11ed-bce5-0242ac130002";
 
 const filterData = (data: WeatherRawDataType[]) => {
-  const filtered = data.filter(
-    (item) =>
-      new Date(item.time).getHours() === 0 ||
-      new Date(item.time).getHours() === 6 ||
-      new Date(item.time).getHours() === 12 ||
-      new Date(item.time).getHours() === 19
-  ).map(item => ({
-    temperature: `${Math.floor(item.airTemperature.noaa)}`,
-    cloud: `${Math.floor(item.cloudCover.noaa)}%`,
-    gust: `${Math.floor(item.gust.noaa)} м/с`,
-    time: `${moment(new Date(item.time)).format('HH:mm')}`,
-    day: `${moment(new Date(item.time)).format('dd').toUpperCase()}`,
-    visibility: `${Math.floor(item.visibility.noaa)} км`,
-    windSpeed: `${Math.floor(item.windSpeed.noaa)} м/с`,
-  }));
+  const filtered = data
+    .filter(
+      (item) =>
+        new Date(item.time).getHours() === 0 ||
+        new Date(item.time).getHours() === 6 ||
+        new Date(item.time).getHours() === 12 ||
+        new Date(item.time).getHours() === 19
+    )
+    .map((item) => ({
+      temperature: `${Math.floor(item.airTemperature.noaa)}`,
+      cloud: `${Math.floor(item.cloudCover.noaa)}%`,
+      gust: `${Math.floor(item.gust.noaa)} м/с`,
+      time: `${moment(new Date(item.time)).format("HH:mm")}`,
+      day: `${moment(new Date(item.time)).format("dd").toUpperCase()}`,
+      visibility: `${Math.floor(item.visibility.noaa)} км`,
+      windSpeed: `${Math.floor(item.windSpeed.noaa)} м/с`,
+    }));
 
-  filtered.pop()
+  filtered.pop();
 
   const SIZE = 4;
 
@@ -40,7 +52,10 @@ const filterData = (data: WeatherRawDataType[]) => {
   return result;
 };
 
-export const getWeatherData = async (city: CityType, callback: (data: WeatherItemType[][]) => void) => {
+export const getWeatherData = async (
+  city: CityType,
+  callback: (data: WeatherItemType[][]) => void
+) => {
   const { lat, lng } = city;
   const start = moment().startOf("day").toISOString();
   const end = moment().startOf("day").add(7, "days").toISOString();

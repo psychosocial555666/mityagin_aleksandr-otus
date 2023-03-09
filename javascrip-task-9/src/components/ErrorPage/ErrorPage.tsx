@@ -1,7 +1,8 @@
+import { FC } from "react";
 import { useRouteError } from "react-router-dom";
 import { ErrorType } from "../../utils/types";
 
-export function ErrorPage() {
+export const ErrorPage: FC = () => {
   const error = useRouteError() as ErrorType;
 
   return (
@@ -13,4 +14,4 @@ export function ErrorPage() {
       </p>
     </div>
   );
-}
+};

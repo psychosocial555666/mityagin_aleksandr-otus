@@ -37,4 +37,4 @@ export type WeatherItemType = {
 export type ErrorType = {
   statusText: string;
   message: string;
-}
+};

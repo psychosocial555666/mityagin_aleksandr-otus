@@ -1,3 +1,5 @@
+import { CityType } from "./types";
+
 export const cities = [
   {
     city: "Адыгейск",
@@ -2502,3 +2504,27 @@ export const cities = [
     lng: "33.6910325",
   },
 ];
+
+class StorageController {
+  private cities: CityType[] = [];
+
+  init() {
+    const citiesFromStore = localStorage.getItem("cities");
+    if (citiesFromStore) {
+      this.cities = JSON.parse(citiesFromStore);
+    } else {
+      this.cities = cities;
+      localStorage.setItem("cities", JSON.stringify(this.cities));
+    }
+  }
+
+  getCities() {
+    return this.cities;
+  }
+
+  getCity(id: string) {
+    return this.cities.find((item) => item.id === id);
+  }
+}
+
+export const storageController = new StorageController();
