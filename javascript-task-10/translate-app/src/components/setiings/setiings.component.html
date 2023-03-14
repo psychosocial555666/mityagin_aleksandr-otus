@@ -1,23 +1,79 @@
 <div class="wrapper">
   <div class="settings">
     <h2 class="settings__title">Settings</h2>
-    <form action="" class="settings__form" [formGroup]="settingsForm">
+    <form
+      action=""
+      class="settings__form"
+      [formGroup]="settingsForm"
+      (ngSubmit)="onSubmit()"
+    >
       <label for="words" class="settings__words-number">
         Number of words
-        <button class="settings__button">-</button>
-        <input type="text" id="words" value="5" class="settings__input" formControlName="wordsNumber">
-        <button class="settings__button">+</button>
+        <button class="settings__button" (click)="decreaseValue($event)">
+          -
+        </button>
+        <input
+          type="text"
+          id="words"
+          [disabled]="true"
+          class="settings__input"
+          formControlName="wordsNumber"
+          autofocus
+        />
+        <button class="settings__button" (click)="increaseValue($event)">
+          +
+        </button>
+        <div
+          class="message"
+          *ngIf="this.settingsForm.controls.wordsNumber.errors?.['required']"
+        >
+          Required field
+        </div>
+        <div
+          class="message"
+          *ngIf="this.settingsForm.controls.wordsNumber.errors?.['max']"
+        >
+          Max value shold not be more than added words
+        </div>
+        <div
+          class="message"
+          *ngIf="this.settingsForm.controls.wordsNumber.errors?.['min']"
+        >
+          Max value shold not be more than 0
+        </div>
+        <div
+          class="message"
+          *ngIf="this.settingsForm.controls.wordsNumber.errors?.['pattern']"
+        >
+          Only numbers allowed
+        </div>
       </label>
-      <input type="radio" id="language-en" name="language" value="en|ru" class="settings__radio" checked formControlName="language">
-      <label for="language-en" class="settings__language">
-        EN to RU
-      </label>
-      <input type="radio" id="language-ru" name="language" value="ru|en" class="settings__radio" formControlName="language">
-      <label for="language-ru" class="settings__language">
-        Ru to EN
-      </label>
-      <button type="submit" class="settings__submit">Save</button>
+      <input
+        type="radio"
+        id="language-en"
+        name="language"
+        value="en|ru"
+        class="settings__radio"
+        checked
+        formControlName="language"
+      />
+      <label for="language-en" class="settings__language"> EN to RU </label>
+      <input
+        type="radio"
+        id="language-ru"
+        name="language"
+        value="ru|en"
+        class="settings__radio"
+        formControlName="language"
+      />
+      <label for="language-ru" class="settings__language"> Ru to EN </label>
+      <button
+        type="submit"
+        class="settings__submit"
+        [disabled]="!settingsForm.valid"
+      >
+        Save
+      </button>
     </form>
-
   </div>
 </div>

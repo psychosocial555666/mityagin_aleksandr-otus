@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { StoreService } from 'src/services/store/store.service';
 
 @Component({
   selector: 'app-header',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor() { }
+  constructor(public storeService: StoreService) {}
   navigationClickHandler(e: MouseEvent) {
     e.preventDefault();
   }

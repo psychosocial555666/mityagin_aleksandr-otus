@@ -1,15 +1,26 @@
 import { TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { GoComponent } from 'src/components/go/go.component';
+import { HeaderComponent } from 'src/components/header/header.component';
+import { NotFoundComponent } from 'src/components/not-found/not-found.component';
+import { RecentlyAddedComponent } from 'src/components/recently-added/recently-added.component';
+import { SetiingsComponent } from 'src/components/setiings/setiings.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
+      imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
       declarations: [
-        AppComponent
+        AppComponent,
+        RecentlyAddedComponent,
+        GoComponent,
+        SetiingsComponent,
+        HeaderComponent,
+        NotFoundComponent,
       ],
     }).compileComponents();
   });
@@ -18,18 +29,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'translate-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('translate-app');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('translate-app app is running!');
   });
 });

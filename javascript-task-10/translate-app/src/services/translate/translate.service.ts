@@ -1,37 +1,32 @@
 import { Injectable } from '@angular/core';
-import {
-  switchMap,
-  of,
-  catchError,
-  map,
-} from 'rxjs';
+import { switchMap, of, catchError, map } from 'rxjs';
 import { fromFetch } from 'rxjs/fetch';
+import { RegFilterExp } from 'src/utils/const';
+import { unique } from 'src/utils/methods';
+import { SettingsService } from '../settings/settings.service';
 import { StoreService } from '../store/store.service';
-
-function unique(arr: string[]) {
-  let result: string[] = [];
-
-  for (let str of arr) {
-    if (str && !result.includes(str)) {
-      result.push(str);
-    }
-  }
-
-  return result;
-}
 
 @Injectable({
   providedIn: 'root',
 })
 export class TranslateService {
   public isLoading = false;
-  constructor(public storeService: StoreService) {}
+  constructor(
+    private storeService: StoreService,
+    private settingsService: SettingsService
+  ) {}
 
   requestTranslation(word: string) {
     this.isLoading = true;
+    const reg =
+      this.settingsService.getSettings()?.language === 'en|ru'
+        ? RegFilterExp.RUSSIAN
+        : RegFilterExp.ENGLISH;
 
     fromFetch(
-      `https://api.mymemory.translated.net/get?q=${word}&langpair=en|ru`
+      `https://api.mymemory.translated.net/get?q=${word}&langpair=${
+        this.settingsService.getSettings()?.language
+      }`
     )
       .pipe(
         switchMap((response) => {
@@ -42,7 +37,9 @@ export class TranslateService {
           }
         }),
         map((data) =>
-          data.matches.map((item: any) => item.translation.toLowerCase().match(/[а-я\s]/g)?.join(''))
+          data.matches.map((item: any) =>
+            item.translation.toLowerCase().match(reg)?.join('')
+          )
         ),
         catchError((err) => {
           console.error(err);
