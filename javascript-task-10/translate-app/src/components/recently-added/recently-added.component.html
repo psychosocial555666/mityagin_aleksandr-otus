@@ -1,0 +1,36 @@
+<div class="wrapper">
+  <form
+    action="post"
+    class="new-word"
+    (submit)="submitHandler($event, wordInput.value)"
+  >
+    <label for="newWordInput" class="new-word__label">
+      <input
+        type="text"
+        name="newWord"
+        id="newWordInput"
+        class="new-word__input"
+        placeholder="Add new word"
+        #wordInput
+        autofocus
+      />
+    </label>
+    <button type="submit" class="new-word__submit">
+      {{ !translateService.isLoading ? "Add" : "Translating..." }}
+    </button>
+  </form>
+  <div class="words">
+    <div *ngFor="let word of storeService.getWords()" class="words__item">
+      <span class="words__item--native">{{ word.word }} - </span>
+      <span class="words__item--translation">{{
+        word.translation.join(", ")
+      }}</span>
+      <button
+        class="words__item--delete"
+        (click)="storeService.deleteWord(word)"
+      >
+        x
+      </button>
+    </div>
+  </div>
+</div>

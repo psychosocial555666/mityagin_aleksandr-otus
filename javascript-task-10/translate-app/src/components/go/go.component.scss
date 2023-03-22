@@ -1,0 +1,106 @@
+:host {
+  flex-grow: 1;
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.word {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 96px;
+  height: 50%;
+  width: 100%;
+  background-color: rgba(0, 105, 235, 0.498);
+  color: #f2f2f2;
+}
+
+.check {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 50%;
+  width: 100%;
+}
+
+.check__form {
+  display: flex;
+  position: relative;
+  width: 80%;
+}
+
+.check__label {
+  display: flex;
+  flex-grow: 1;
+}
+
+.check__input {
+  padding: 18px 24px;
+  font-size: 24px;
+  width: 100%;
+  outline: none;
+  border: 2px solid rgb(10, 35, 59);
+  border-radius: 5px;
+  &:hover,
+  &:focus {
+    border: 2px solid rgba(0, 105, 204, 0.787);
+  }
+}
+
+.check__submit {
+  position: absolute;
+  padding: 18px 24px;
+  font-size: 24px;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  background-color: rgba(12, 179, 12, 0.804);
+  color: #f2f2f2;
+  cursor: pointer;
+  transition: background 0.5s ease-in-out;
+  &:hover,
+  &:focus {
+    background-color: rgba(14, 216, 14, 0.804);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: rgba(184, 186, 188, 0.787);
+    color: rgba(58, 59, 59, 0.787);
+  }
+}
+
+.check__step {
+  font-size: 22px;
+}
+
+.finished {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.title {
+  font-size: 86px;
+  color: rgba(12, 179, 12, 0.804);
+}
+
+.return-to-main {
+  color: rgba(0, 105, 204, 0.787);
+  font-size: 36px;
+}

@@ -1,0 +1,36 @@
+<div *ngIf="!goService.isFinished; then thenBlock; else elseBlock"></div>
+<ng-template #thenBlock>
+  <div class="wrapper">
+    <div class="word">{{ goService.getCurrentWord()?.word }}</div>
+    <div class="check">
+      <form action="" class="check__form">
+        <label for="" class="check__label">
+          <input
+            type="text"
+            class="check__input"
+            [formControl]="answer"
+            #answerInput
+          />
+        </label>
+        <button
+          type="submit"
+          class="check__submit"
+          (click)="onNextClick($event)"
+          [disabled]="!goService.isCorrect"
+        >
+          Next
+        </button>
+      </form>
+      <p class="check__step">
+        {{ goService.getStep() }} of
+        {{ settingsService.getSettings()?.wordsNumber }}
+      </p>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <div class="finished">
+    <p class="title">Тренировка успешно проидена</p>
+    <a routerLink="/" class="return-to-main">Вернуться на главную</a>
+  </div>
+</ng-template>

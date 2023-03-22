@@ -1,0 +1,23 @@
+:host {
+  flex-grow: 1;
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1;
+  font-size: 32px;
+}
+
+.title {
+  font-size: 96px;
+  color: #555555;
+}
+
+.return {
+  color: #333333;
+}
