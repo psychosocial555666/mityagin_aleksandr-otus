@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="buttons">
+    <button
+      *ngIf="!sidebarModalService.isEditing"
+      class="button edit"
+      (click)="editClickHandler()"
+    >
+      <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+    </button>
+  </div>
+  <div class="details">
+    <div class="stats">
+      <a
+        class="name"
+        href="https://www.google.com/search?q={{
+          filmsService.getCurrentFilm()?.name
+        }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ filmsService.getCurrentFilm()?.name }}</a
+      >
+      <app-rating-info
+        [rating]="filmsService.getCurrentFilm()?.rating || 0"
+      ></app-rating-info>
+      <div class="stats__item type">
+        <p class="label">Тип:</p>
+        <p class="value">
+          {{ filmsService.getCurrentFilm()?.type || "Не указано" }}
+        </p>
+      </div>
+      <div class="stats__item genres">
+        <p class="label">Жанр:</p>
+        <p class="value">
+          {{ filmsService.getCurrentFilm()?.genre || "Не указано" }}
+        </p>
+      </div>
+      <div class="stats__item countries">
+        <p class="label">Страна:</p>
+        <p class="value">
+          {{ filmsService.getCurrentFilm()?.country || "Не указано" }}
+        </p>
+      </div>
+      <div class="stats__item director">
+        <p class="label">Режисер:</p>
+        <a
+          class="name-link"
+          href="https://www.google.com/search?q={{
+            filmsService.getCurrentFilm()?.director
+          }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ filmsService.getCurrentFilm()?.director || "Не указано" }}</a
+        >
+      </div>
+      <div class="stats__item artists">
+        <p class="label">В ролях:</p>
+        <div class="artists__list">
+          <a
+            class="name-link"
+            *ngFor="let artist of filmsService.getCurrentFilm()?.artists"
+            href="https://www.google.com/search?q={{ artist }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ artist }}</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="poster">
+      <img
+        [src]="filmsService.getCurrentFilm()?.logo"
+        *ngIf="filmsService.getCurrentFilm()?.logo"
+        alt="Logo"
+        class="image"
+      />
+      <img
+        src="../../assets/images/no-image.jpg"
+        *ngIf="!filmsService.getCurrentFilm()?.logo"
+        alt="Logo"
+        class="image"
+      />
+    </div>
+  </div>
+  <div class="about">
+    <p class="label">Описание:</p>
+    {{ filmsService.getCurrentFilm()?.description || "Не указано" }}
+  </div>
+  <div class="impressions">
+    <p class="label">Впечатления:</p>
+    <p>
+      {{ filmsService.getCurrentFilm()?.impressions || "Не указано" }}
+    </p>
+  </div>
+  <div class="date">
+    <span
+      >Добавлено
+      {{
+        filmsService.getCurrentFilm()?.createdAt | date : "dd.MM.YYYY"
+      }}</span
+    >
+  </div>
+</div>

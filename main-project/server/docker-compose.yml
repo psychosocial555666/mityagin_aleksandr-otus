@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+
+  favoritor-database:
+    container_name: favoritor-database
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - favoritor-app-network
+
+networks:
+  favoritor-app-network:
+    driver: bridge

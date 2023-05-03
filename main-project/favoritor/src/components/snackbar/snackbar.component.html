@@ -1,0 +1,20 @@
+<div
+  class="container"
+  *ngIf="snackbarService.snackbars.length"
+>
+  <div class="wrapper" [ngSwitch]="snackbar.type" *ngFor="let snackbar of snackbarService.snackbars">
+    <div *ngSwitchCase="'error'" class="snackbar error">
+      <ng-icon size="1.8em" name="featherXCircle"></ng-icon>
+      <p class="title">{{ snackbar.message }}</p>
+    </div>
+    <div *ngSwitchCase="'success'" class="snackbar success">
+      <ng-icon name="featherCheckCircle"></ng-icon>
+      <p class="title">{{ snackbar.message }}</p>
+    </div>
+    <div *ngSwitchCase="'warning'" class="snackbar warning">
+      <ng-icon name="featherAlertCircle"></ng-icon>
+      <p class="title">{{ snackbar.message }}</p>
+    </div>
+  </div>
+  <button class="close" (click)="snackbarService.closeHandler()">Убрать все</button>
+</div>

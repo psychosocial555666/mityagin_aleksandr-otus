@@ -1,0 +1,49 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-image: url(../../assets/images/logo_background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .singup {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    width: 20%;
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 3px solid #2e2525;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .singup__title {
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0.7em 0;
+    font-weight: normal;
+    color: #f2f2f2;
+    background: #2e2525;
+  }
+  
+  .singup__form {
+    display: flex;
+    padding: 2em;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5em;
+    width: 100%;
+  }
+  

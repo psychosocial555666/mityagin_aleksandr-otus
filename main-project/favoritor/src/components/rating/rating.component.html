@@ -1,0 +1,15 @@
+<div class="rating">
+  <div class="rating-area">
+    <ng-container *ngFor="let item of ratings">
+      <input
+        type="radio"
+        id="{{ id }}-{{ item }}"
+        name="rating"
+        value="{{ item }}"
+        [checked]="item === rating"
+        (change)="onChange($event)"
+      />
+      <label for="{{ id }}-{{ item }}" title="Оценка «{{ item }}»"></label>
+    </ng-container>
+  </div>
+</div>
