@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { reg } from 'src/common/const';
 import { SnackbarService } from 'src/services/snackbar/snackbar.service';
 import { UserService } from 'src/services/user/user.service';
-import { reg } from '../signup/signup.component';
 
 @Component({
   selector: 'app-login',

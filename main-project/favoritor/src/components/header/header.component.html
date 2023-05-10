@@ -2,11 +2,13 @@
   <div class="header__logo">
     <img src="../../assets/images/logo.png" alt="">
   </div>
-  <form action="" class="header__search">
+  <form action="" class="header__search" (submit)="onSubmit($event)">
     <input
       type="search"
       id="search"
       name="search"
+      (search)="onSubmit($event)"
+      [formControl]="search"
       class="search__input"
       placeholder="Поиск..."
     />

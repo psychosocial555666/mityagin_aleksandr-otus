@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 export enum MODAL_TITLES {
   NEW_FILM = 'Новый фильм',
@@ -14,7 +15,7 @@ export class SidebarModalService {
   public isOpened = false;
   public isEditing = false;
   public title: MODAL_TITLES = MODAL_TITLES.ABOUT_FILM;
-  constructor(public router: Router) {
+  constructor(public router: Router, private location: Location) {
   }
 
   setOpened() {
@@ -28,7 +29,14 @@ export class SidebarModalService {
   setClosed() {
     this.isOpened = false;
     this.isEditing = false;
-    this.router.navigateByUrl('/main/films');
+    this.location.back();
+  }
+  
+  setEditClosed() {
+    this.isOpened = false;
+    this.isEditing = false;
+    this.location.back();
+    this.location.back();
   }
 
   enableEditing() {

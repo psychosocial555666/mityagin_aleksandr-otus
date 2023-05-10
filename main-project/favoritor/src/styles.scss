@@ -98,3 +98,20 @@ body {
   bottom: -20px;
   right: 0;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px rgba(150, 169, 6, 0.851);
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(49, 129, 9, 0.886);
+  border-radius: 4px;
+}

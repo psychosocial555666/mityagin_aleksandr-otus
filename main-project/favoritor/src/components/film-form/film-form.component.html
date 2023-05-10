@@ -6,10 +6,14 @@
     (submit)="onSubmit()"
   >
     <div class="buttons">
+      <button class="button close" (click)="backClick()" type="button">
+        <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+      </button>
       <button
         *ngIf="!sidebarModalService.isEditing"
         class="button edit"
         (click)="editClickHandler()"
+        type="button"
       >
         <ng-icon name="featherEdit" size="2.5em"></ng-icon>
       </button>

@@ -30,6 +30,11 @@
   justify-content: center;
   flex-grow: 1;
   position: relative;
+  &:focus-within {
+    .header__search-btn {
+      color: #000000;
+    }
+  }
 }
 
 .search__input {
@@ -44,15 +49,12 @@
   transition: all 0.3s ease-in-out;
   outline: none;
   &:hover {
-    border-color: #f2f2f2;
     color: #f2f2f2;
-  }
-  &:hover {
     border: 2px solid #0bbb25;
   }
   &:focus, &:active {
     color: #0bbb25;
-    background-color: #ffffff49;
+    background-color: #ffffff;
     border: 2px solid #0bbb25;
   }
 }
@@ -79,7 +81,6 @@
   transition: all 0.3s ease-in-out;
   &:hover,
   &:focus {
-    background: #ffffff;
     color: #2e2525;
   }
 }

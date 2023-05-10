@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FilmsService } from 'src/services/films/films.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-films',

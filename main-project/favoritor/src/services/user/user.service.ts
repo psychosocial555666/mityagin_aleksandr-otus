@@ -68,7 +68,7 @@ export class UserService {
         error: (err) => this.snackbarService.showSnackBar('error', err),
       });
   }
-
+  
   login(login: string, password: string) {
     this.apollo
       .mutate({

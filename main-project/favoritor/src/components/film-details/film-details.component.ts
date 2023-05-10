@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FilmsService, FilmType } from 'src/services/films/films.service';
+import { FilmType } from 'src/common/types';
+import { FilmsService} from 'src/services/films/films.service';
 import {
   SidebarModalService,
   MODAL_TITLES,
@@ -31,5 +32,9 @@ export class FilmDetailsComponent {
     ]);
     this.sidebarModalService.enableEditing();
     this.sidebarModalService.setTitle(MODAL_TITLES.EDIT_FILM);
+  }
+
+  public linkClickHandler() {
+    this.filmsService.getKinopoiskListByName();
   }
 }

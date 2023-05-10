@@ -67,7 +67,7 @@ export class FilmFormComponent {
       this.filmsService.createFilm(filmData);
     }
     this.sidebarModalService.disableEditing();
-    this.router.navigate([{ outlets: { modal: ['film', currentFilm?.id] } }]);
+    this.backClick();
   }
 
   onDelete(): void {
@@ -75,7 +75,7 @@ export class FilmFormComponent {
     if (currentFilm?.id) {
       this.filmsService.deleteFilm(currentFilm?.id);
     }
-    this.sidebarModalService.setClosed();
+    this.sidebarModalService.setEditClosed();
   }
 
   public updateRating(rating: number) {
@@ -86,5 +86,14 @@ export class FilmFormComponent {
     this.router.navigate([{ outlets: { modal: ['film', 'edit', this.filmsService.getCurrentFilm()?.id ] }}]);
     this.sidebarModalService.enableEditing();
     this.sidebarModalService.setTitle(MODAL_TITLES.EDIT_FILM);
+  }
+
+  public backClick() {
+    if (this.filmsService.getCurrentFilm()?.id === '-1') {
+      this.sidebarModalService.setClosed();
+    }
+    else {
+      this.sidebarModalService.setEditClosed();
+    }
   }
 }

@@ -69,10 +69,12 @@ export const resolvers = {
       const id = context?.user?.id;
       if (id) {
         const user = await User.findOne({ _id: id });
-        return {
-          token: jwt.sign({ id: user._id }, JWTSECRET),
-          user: user,
-        };
+        if(user) {
+          return {
+            token: jwt.sign({ id: user._id }, JWTSECRET),
+            user: user,
+          };
+        }
       }
       const { userLogin, userPassword } = args;
       try {

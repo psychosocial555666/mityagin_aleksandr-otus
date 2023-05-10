@@ -25,6 +25,7 @@ import {
   featherSave,
   featherTrash2,
   featherPlus,
+  featherLink,
 } from '@ng-icons/feather-icons';
 import { FilmsComponent } from 'src/components/films/films.component';
 import { BooksComponent } from '../components/books/books.component';
@@ -89,6 +90,7 @@ import { AddFilmComponent } from '../components/add-film/add-film.component';
       featherSave,
       featherPlus,
       featherTrash2,
+      featherLink,
     }),
     GraphQLModule,
   ],

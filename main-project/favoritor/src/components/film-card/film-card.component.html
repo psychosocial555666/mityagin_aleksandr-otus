@@ -1,5 +1,5 @@
 <app-add-film></app-add-film>
-<div class="container" *ngFor="let film of filmsService.getFilms()">
+<div class="container" *ngFor="let film of filmsService.getFiltered()">
   <div class="card">
     <img [src]="film?.logo" *ngIf="film?.logo" alt="Logo" class="image" />
     <img

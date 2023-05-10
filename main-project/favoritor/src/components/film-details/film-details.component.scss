@@ -6,7 +6,7 @@
 .details {
   display: flex;
   padding-top: 1em;
-  align-items: start;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -34,8 +34,8 @@
   display: flex;
   position: absolute;
   align-items: center;
-  top: 20px;
-  left: 100px;
+  top: 10px;
+  left: 15px;
 }
 
 .button {
@@ -52,7 +52,9 @@
   color: #ffffff;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
-  &:hover, &:focus, &:active {
+  &:hover,
+  &:focus,
+  &:active {
     color: rgb(11, 187, 37);
   }
   &:disabled {

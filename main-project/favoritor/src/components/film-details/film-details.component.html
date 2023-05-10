@@ -1,11 +1,27 @@
 <div class="container">
   <div class="buttons">
     <button
+      class="button close"
+      (click)="sidebarModalService.setClosed()"
+      type="button"
+    >
+      <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+    </button>
+    <button
       *ngIf="!sidebarModalService.isEditing"
       class="button edit"
+      type="button"
       (click)="editClickHandler()"
     >
       <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+    </button>
+    <button
+      class="button link"
+      type="button"
+      *ngIf="filmsService.getCurrentFilm()?.name"
+      (click)="linkClickHandler()"
+    >
+      <ng-icon name="featherLink" size="2.5em"></ng-icon>
     </button>
   </div>
   <div class="details">
@@ -94,9 +110,7 @@
   <div class="date">
     <span
       >Добавлено
-      {{
-        filmsService.getCurrentFilm()?.createdAt | date : "dd.MM.YYYY"
-      }}</span
+      {{ filmsService.getCurrentFilm()?.createdAt | date : "dd.MM.YYYY" }}</span
     >
   </div>
 </div>

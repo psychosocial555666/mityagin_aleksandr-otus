@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { FilmsService } from 'src/services/films/films.service';
+import { MainService } from 'src/services/main/main.service';
 import { UserService } from 'src/services/user/user.service';
 
 @Component({
@@ -7,8 +10,14 @@ import { UserService } from 'src/services/user/user.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  constructor(public userService: UserService) {
+  search = new FormControl('')
+  constructor(public userService: UserService, public mainService: MainService, public filmsService: FilmsService) {
     
   }
 
+  onSubmit(event: SubmitEvent | Event) {
+    event.preventDefault();
+    this.mainService.setSearch(this.search.value || '')
+    this.filmsService.filterFilms()
+  }
 }

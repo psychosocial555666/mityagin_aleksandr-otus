@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { newFilm } from 'src/common/const';
 import { FilmsService } from 'src/services/films/films.service';
 import { MODAL_TITLES, SidebarModalService } from 'src/services/sidebar-modal/sidebar-modal.service';
 
@@ -16,19 +17,7 @@ export class AddFilmComponent {
   ) {}
 
   public addClickHandler() {
-    this.filmsService.setCurrentFilm({
-      id: '-1',
-      name: '',
-      description: '',
-      rating: 0,
-      logo: '',
-      artists: [],
-      director: '',
-      country: '',
-      impressions: '',
-      genre: '',
-      createdAt: new Date().toLocaleString(),
-    });
+    this.filmsService.setCurrentFilm(newFilm);
     this.router.navigate([{ outlets: { modal: ['film', 'edit', '-1'] } }]);
     this.sidebarModalService.setOpened();
     this.sidebarModalService.enableEditing();
