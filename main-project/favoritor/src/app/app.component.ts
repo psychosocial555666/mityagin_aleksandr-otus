@@ -12,6 +12,10 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.userService.login('', '')
+    const token = localStorage.getItem('token');
+
+    if (token !== null) {
+      this.userService.login('', '')
+    }
   }
 }

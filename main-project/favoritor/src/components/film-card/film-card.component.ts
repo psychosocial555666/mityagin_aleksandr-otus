@@ -20,7 +20,7 @@ export class FilmCardComponent {
 
   openFilmCardHandler(id: string | undefined): void {
     if (!id) return;
-    this.filmsService.requestFilmBhyId(id);
+    this.filmsService.requestFilmById(id);
     this.sidebarModalService.setOpened();
     this.sidebarModalService.setTitle(MODAL_TITLES.ABOUT_FILM);
   }

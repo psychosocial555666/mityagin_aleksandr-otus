@@ -33,8 +33,4 @@ export class FilmDetailsComponent {
     this.sidebarModalService.enableEditing();
     this.sidebarModalService.setTitle(MODAL_TITLES.EDIT_FILM);
   }
-
-  public linkClickHandler() {
-    this.filmsService.getKinopoiskListByName();
-  }
 }

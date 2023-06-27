@@ -1,0 +1,38 @@
+<app-book-add></app-book-add>
+<div class="container" *ngFor="let book of booksService.getFiltered()">
+  <div class="card">
+    <img [src]="book?.logo" *ngIf="book?.logo" alt="Logo" class="image" />
+    <img
+      src="../../assets/images/no-image.jpg"
+      *ngIf="!book?.logo"
+      alt="Logo"
+      class="image"
+    />
+    <div class="content">
+      <div class="stats">
+        <a
+          class="title"
+          href="https://www.google.com/search?q={{ book?.name }} {{book?.author}}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ book?.name }}</a
+        >
+        <app-rating-info [rating]="book?.rating || 0"></app-rating-info>
+        <div class="details">
+          <span *ngIf="book?.author">{{ book?.author }} | </span
+          ><span *ngIf="book?.genre">{{ book?.genre }}</span>
+        </div>
+        <div class="date">
+          <span>Добавлено {{ book?.createdAt | date : "dd.MM.YYYY" }}</span>
+        </div>
+      </div>
+    </div>
+    <a
+      class="more"
+      [routerLink]="['', { outlets: { modal: ['book', book?.id] } }]"
+      (click)="openBookCardHandler(book?.id)"
+    >
+      Подробнее
+    </a>
+  </div>
+</div>

@@ -71,12 +71,13 @@
           ></app-rating
         ></span>
         <label for="name" class="textfield__label">
+          Название
           <input
             type="text"
             name="name"
             formControlName="name"
-            id="name"
             class="textfield__input"
+            id="name"
             placeholder="Название"
           />
           <div
@@ -87,6 +88,7 @@
           </div>
         </label>
         <label for="type" class="textfield__label">
+          Тип
           <input
             type="text"
             name="type"
@@ -97,6 +99,7 @@
           />
         </label>
         <label for="genre" class="textfield__label">
+          Жанр
           <input
             type="text"
             name="genre"
@@ -107,6 +110,7 @@
           />
         </label>
         <label for="country" class="textfield__label">
+          Страна
           <input
             type="text"
             name="country"
@@ -116,29 +120,22 @@
             class="textfield__input"
           />
         </label>
-        <label for="director" class="textfield__label">
-          <input
-            type="text"
-            name="director"
-            placeholder="Режисер"
-            id="director"
-            formControlName="director"
-            class="textfield__input"
-          />
-        </label>
-        <label for="artists" class="textfield__label">
-          <input
-            type="text"
-            name="artists"
-            placeholder="В ролях"
-            id="artists"
-            formControlName="artists"
-            class="textfield__input"
-          />
-        </label>
+        <app-list-control
+          [list]="filmsService.getCurrentFilm()?.director || []"
+          [placeholder]="'Имя режисера'"
+          [label]="'Режисер(ы)'"
+          (changeListEvent)="updateDirector($event)"
+        ></app-list-control>
+        <app-list-control
+          [list]="filmsService.getCurrentFilm()?.artists || []"
+          [placeholder]="'Имя актера'"
+          [label]="'В ролях'"
+          (changeListEvent)="updateArtists($event)"
+        ></app-list-control>
       </div>
     </div>
     <label for="description" class="textfield__label">
+      Описание
       <textarea
         name="description"
         id="description"
@@ -149,6 +146,7 @@
       ></textarea>
     </label>
     <label for="impressions" class="textfield__label">
+      Впечатления
       <textarea
         name="impressions"
         id="impressions"

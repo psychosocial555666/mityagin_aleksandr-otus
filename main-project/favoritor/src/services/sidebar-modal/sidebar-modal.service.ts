@@ -5,7 +5,13 @@ import { Location } from '@angular/common';
 export enum MODAL_TITLES {
   NEW_FILM = 'Новый фильм',
   EDIT_FILM = 'Редактирование фильма',
-  ABOUT_FILM = 'О Фильме',
+  ABOUT_FILM = 'О фильме',
+  NEW_BOOK = 'Новая книга',
+  EDIT_BOOK = 'Редактирование книги',
+  ABOUT_BOOK = 'О книге',
+  NEW_ALBUM = 'Новый альбом',
+  EDIT_ALBUM = 'Редактирование альбома',
+  ABOUT_ALBUM = 'Об альбоме',
 }
 
 @Injectable({

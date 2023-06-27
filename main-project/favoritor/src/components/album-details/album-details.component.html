@@ -1,0 +1,139 @@
+<div class="container">
+  <ul *ngIf="albumsService.list.length" class="preview-list">
+    <button
+      class="button list-close"
+      (click)="albumsService.onListClose()"
+      type="button"
+    >
+      <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+    </button>
+    <app-album-preview></app-album-preview>
+  </ul>
+  <div class="spinner" *ngIf="albumsService.isDataLoading">
+    <div class="lds-default">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button
+      class="button close"
+      (click)="sidebarModalService.setClosed()"
+      type="button"
+    >
+      <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+    </button>
+    <button
+      *ngIf="!sidebarModalService.isEditing"
+      class="button edit"
+      type="button"
+      (click)="editClickHandler()"
+    >
+      <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+    </button>
+    <button
+      class="button link"
+      type="button"
+      *ngIf="albumsService.getCurrentAlbum()?.name"
+      (click)="albumsService.getDeezerDataByName()"
+    >
+      <ng-icon name="featherLink" size="2.5em"></ng-icon>
+    </button>
+  </div>
+  <div class="details">
+    <div class="stats">
+      <a
+        class="name"
+        href="https://www.google.com/search?q={{
+          albumsService.getCurrentAlbum()?.name
+        }} {{ albumsService.getCurrentAlbum()?.author }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ albumsService.getCurrentAlbum()?.name }}</a
+      >
+      <app-rating-info
+        [rating]="albumsService.getCurrentAlbum()?.rating || 0"
+      ></app-rating-info>
+      <div class="stats__item year">
+        <p class="label">Год выпуска:</p>
+        <p class="value">
+          {{ albumsService.getCurrentAlbum()?.year || "Не указано" }}
+        </p>
+      </div>
+      <div class="stats__item genres">
+        <p class="label">Жанр:</p>
+        <p class="value">
+          {{ albumsService.getCurrentAlbum()?.genre || "Не указано" }}
+        </p>
+      </div>
+      <div class="stats__item author">
+        <p class="label">Композитор:</p>
+        <a
+          class="name-link"
+          href="https://www.google.com/search?q={{
+            albumsService.getCurrentAlbum()?.author
+          }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ albumsService.getCurrentAlbum()?.author || "Не указано" }}</a
+        >
+      </div>
+      <div class="stats__item songs">
+        <p class="label">Список композиций:</p>
+        <div class="songs__list">
+          <a
+            class="name-link"
+            *ngFor="
+              let song of albumsService.getCurrentAlbum()?.songs;
+              let i = index
+            "
+            href="https://www.google.com/search?q={{ song }} {{
+              albumsService.getCurrentAlbum()?.author
+            }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ song?.length ? i + 1 + "." : "Нет" }} {{ song }}</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="poster">
+      <img
+        [src]="albumsService.getCurrentAlbum()?.logo"
+        *ngIf="albumsService.getCurrentAlbum()?.logo"
+        alt="Logo"
+        class="image"
+      />
+      <img
+        src="../../assets/images/no-image.jpg"
+        *ngIf="!albumsService.getCurrentAlbum()?.logo"
+        alt="Logo"
+        class="image"
+      />
+    </div>
+  </div>
+  <div class="impressions">
+    <p class="label">Впечатления:</p>
+    <p>
+      {{ albumsService.getCurrentAlbum()?.impressions || "Не указано" }}
+    </p>
+  </div>
+  <div class="date">
+    <span
+      >Добавлено
+      {{
+        albumsService.getCurrentAlbum()?.createdAt | date : "dd.MM.YYYY"
+      }}</span
+    >
+  </div>
+</div>

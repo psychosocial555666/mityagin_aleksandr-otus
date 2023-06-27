@@ -68,7 +68,7 @@ export class UserService {
         error: (err) => this.snackbarService.showSnackBar('error', err),
       });
   }
-  
+
   login(login: string, password: string) {
     this.apollo
       .mutate({
@@ -98,6 +98,9 @@ export class UserService {
     this.setUser(null);
     localStorage.removeItem('token');
     this.router.navigateByUrl('/');
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
   updateUser(userData: UserType) {
     this.apollo

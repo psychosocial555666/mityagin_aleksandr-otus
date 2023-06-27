@@ -1,0 +1,16 @@
+<li
+  class="preview"
+  *ngFor="let preview of booksService.list"
+  (click)="booksService.onBookSelect(preview.bookId)"
+>
+<img
+class="logo"
+*ngIf="!preview.logo"
+src="../../assets/images/no-image.jpg"
+/>
+<img class="logo" *ngIf="preview.logo" [src]="preview.logo" />
+  <div class="wrapper">
+    <p class="title">{{ preview.name }}</p>
+    <span class="year">{{ preview.author }}</span>
+  </div>
+</li>

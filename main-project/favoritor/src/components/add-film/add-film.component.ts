@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { newFilm } from 'src/common/const';
 import { FilmsService } from 'src/services/films/films.service';
-import { MODAL_TITLES, SidebarModalService } from 'src/services/sidebar-modal/sidebar-modal.service';
+import {
+  MODAL_TITLES,
+  SidebarModalService,
+} from 'src/services/sidebar-modal/sidebar-modal.service';
 
 @Component({
   selector: 'app-add-film',

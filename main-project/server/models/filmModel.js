@@ -12,7 +12,7 @@ const filmSchema = new Schema({
   rating: { type: String },
   country: { type: String },
   genre: { type: String },
-  director: { type: String },
+  director: { type: [String] },
   artists: { type: [String] },
   description: { type: String },
   impressions: { type: String },

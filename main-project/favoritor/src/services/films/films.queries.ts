@@ -36,18 +36,21 @@ export const GET_FILM_BY_ID = gql`
 export const CREATE_FILM = gql`
   mutation CreateFilm($filmData: NewFilmInput) {
     createFilm(filmData: $filmData) {
-      id
-      name
-      createdAt
-      artists
-      country
-      description
-      director
-      genre
-      impressions
-      logo
-      rating
-      type
+      film {
+        id
+        name
+        type
+        logo
+        rating
+        country
+        genre
+        director
+        artists
+        description
+        impressions
+        createdAt
+      }
+      error
     }
   }
 `;
@@ -55,18 +58,21 @@ export const CREATE_FILM = gql`
 export const UPDATE_FILM = gql`
   mutation UpdateFilm($filmData: FilmInput) {
     updateFilm(filmData: $filmData) {
-      id
-      createdAt
-      name
-      country
-      artists
-      description
-      director
-      genre
-      impressions
-      logo
-      rating
-      type
+      film {
+        id
+        name
+        type
+        logo
+        rating
+        country
+        genre
+        director
+        artists
+        description
+        impressions
+        createdAt
+      }
+      error
     }
   }
 `;

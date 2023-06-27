@@ -41,6 +41,48 @@ class FileController {
       }
     }
   }
+  async uploadBookLogo(req, res) {
+    {
+      try {
+        if (!req.files) {
+          res.send({
+            status: 501,
+            message: "No file uploaded",
+          });
+        } else {
+          let logo = req.files.logo;
+          logo.mv(`./files/books/${logo.name}`);
+
+          res.send({
+            url: `books/${logo.name}`,
+          });
+        }
+      } catch (err) {
+        res.status(500).send(err);
+      }
+    }
+  }
+  async uploadAlbumLogo(req, res) {
+    {
+      try {
+        if (!req.files) {
+          res.send({
+            status: 501,
+            message: "No file uploaded",
+          });
+        } else {
+          let logo = req.files.logo;
+          logo.mv(`./files/albums/${logo.name}`);
+
+          res.send({
+            url: `albums/${logo.name}`,
+          });
+        }
+      } catch (err) {
+        res.status(500).send(err);
+      }
+    }
+  }
 }
 
 export const fileController = new FileController();

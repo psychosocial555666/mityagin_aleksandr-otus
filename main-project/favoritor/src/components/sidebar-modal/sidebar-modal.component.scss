@@ -18,8 +18,8 @@
 .container {
   position: fixed;
   top: 0;
-  right: -700px;
-  width: 700px;
+  right: -900px;
+  width: 900px;
   height: 100%;
   background: #000000b3;
   transition: right 0.3s ease-in-out;
@@ -51,6 +51,8 @@
 .opened {
   z-index: 1000;
   opacity: 1;
+  animation: blurin 0.5s ease-in-out;
+  backdrop-filter: blur(5px);
   .container {
     right: 0;
   }

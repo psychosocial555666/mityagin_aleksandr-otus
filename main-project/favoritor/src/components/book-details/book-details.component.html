@@ -1,0 +1,119 @@
+<div class="container">
+  <ul *ngIf="booksService.list.length" class="preview-list">
+    <button
+      class="button list-close"
+      (click)="booksService.onListClose()"
+      type="button"
+    >
+      <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+    </button>
+    <app-book-preview></app-book-preview>
+  </ul>
+  <div class="spinner" *ngIf="booksService.isDataLoading">
+    <div class="lds-default">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <div class="buttons">
+    <button
+      class="button close"
+      (click)="sidebarModalService.setClosed()"
+      type="button"
+    >
+      <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+    </button>
+    <button
+      *ngIf="!sidebarModalService.isEditing"
+      class="button edit"
+      type="button"
+      (click)="editClickHandler()"
+    >
+      <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+    </button>
+    <button
+      class="button link"
+      type="button"
+      *ngIf="booksService.getCurrentBook()?.name"
+      (click)="booksService.getGoogleDataByName()"
+    >
+      <ng-icon name="featherLink" size="2.5em"></ng-icon>
+    </button>
+  </div>
+  <div class="details">
+    <div class="stats">
+      <a
+        class="name"
+        href="https://www.google.com/search?q={{
+          booksService.getCurrentBook()?.name
+        }} {{
+          booksService.getCurrentBook()?.author
+        }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        >{{ booksService.getCurrentBook()?.name }}</a
+      >
+      <app-rating-info
+        [rating]="booksService.getCurrentBook()?.rating || 0"
+      ></app-rating-info>
+      <div class="stats__item genres">
+        <p class="label">Жанр:</p>
+        <p class="value">
+          {{ booksService.getCurrentBook()?.genre || "Не указано" }}
+        </p>
+      </div>
+      <div class="stats__item author">
+        <p class="label">Писатель:</p>
+        <a
+          class="name-link"
+          href="https://www.google.com/search?q={{
+            booksService.getCurrentBook()?.author
+          }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ booksService.getCurrentBook()?.author || "Не указано" }}</a
+        >
+      </div>
+    </div>
+    <div class="poster">
+      <img
+        [src]="booksService.getCurrentBook()?.logo"
+        *ngIf="booksService.getCurrentBook()?.logo"
+        alt="Logo"
+        class="image"
+      />
+      <img
+        src="../../assets/images/no-image.jpg"
+        *ngIf="!booksService.getCurrentBook()?.logo"
+        alt="Logo"
+        class="image"
+      />
+    </div>
+  </div>
+  <div class="about">
+    <p class="label">Описание:</p>
+    {{ booksService.getCurrentBook()?.description || "Не указано" }}
+  </div>
+  <div class="impressions">
+    <p class="label">Впечатления:</p>
+    <p>
+      {{ booksService.getCurrentBook()?.impressions || "Не указано" }}
+    </p>
+  </div>
+  <div class="date">
+    <span
+      >Добавлено
+      {{ booksService.getCurrentBook()?.createdAt | date : "dd.MM.YYYY" }}</span
+    >
+  </div>
+</div>

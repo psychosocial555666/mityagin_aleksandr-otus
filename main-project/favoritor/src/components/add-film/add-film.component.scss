@@ -7,13 +7,7 @@
   transition: all 0.3s ease-in-out;
   &:hover {
     box-shadow: 0 0 2em 0 rgba(9, 198, 15, 0.286);
-    .image {
-      filter: brightness(0.2);
-    }
-    .more {
-      top: 50%;
-      opacity: 1;
-    }
+    backdrop-filter: blur(8px);
   }
 }
 

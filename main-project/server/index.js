@@ -46,12 +46,13 @@ const app = express();
 app.use("/", express.static(path.join(__dirname, "static")));
 app.use("/avatars", express.static(path.join(__dirname, "files/avatars"))); 
 app.use("/films", express.static(path.join(__dirname, "files/films"))); 
+app.use("/books", express.static(path.join(__dirname, "files/books"))); 
+app.use("/albums", express.static(path.join(__dirname, "files/albums"))); 
 app.use(
   fileUpload({
     createParentPath: true,
   })
 );
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -79,3 +80,5 @@ app.listen({ port: SERVER_PORT }, () =>
 
 app.post("/avatar", fileController.uploadAvatar);
 app.post("/films", fileController.uploadFilmLogo);
+app.post("/books", fileController.uploadBookLogo);
+app.post("/albums", fileController.uploadAlbumLogo);

@@ -5,10 +5,35 @@ export const newFilm = {
   rating: 0,
   logo: '',
   artists: [],
-  director: '',
+  director: [],
   country: '',
   impressions: '',
   genre: '',
+  createdAt: new Date().toLocaleString(),
+}
+
+export const newBook = {
+  id: '-1',
+  name: '',
+  description: '',
+  rating: 0,
+  logo: '',
+  author: '',
+  impressions: '',
+  genre: '',
+  createdAt: new Date().toLocaleString(),
+}
+
+export const newAlbum = {
+  id: '-1',
+  name: '',
+  rating: 0,
+  logo: '',
+  author: '',
+  year: '',
+  genre: '',
+  songs: [],
+  impressions: '',
   createdAt: new Date().toLocaleString(),
 }
 

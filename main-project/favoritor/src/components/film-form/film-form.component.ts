@@ -27,8 +27,6 @@ export class FilmFormComponent {
       type: new FormControl(film?.type || ''),
       country: new FormControl(film?.country || ''),
       genre: new FormControl(film?.genre || ''),
-      director: new FormControl(film?.director || ''),
-      artists: new FormControl(film?.artists?.join(', ') || ''),
       description: new FormControl(film?.description || ''),
       impressions: new FormControl(film?.impressions || ''),
     });
@@ -58,8 +56,9 @@ export class FilmFormComponent {
     let filmData = {
       ...this.filmEditForm.value,
       logo: currentFilm?.logo,
+      artists: currentFilm?.artists,
+      director: currentFilm?.director,
       rating: Number(currentFilm?.rating),
-      artists: this.filmEditForm.value.artists?.split(', '),
     };
     if (currentFilm?.id !== '-1') {
       this.filmsService.updateFilm({...filmData, id: currentFilm?.id });
@@ -80,6 +79,14 @@ export class FilmFormComponent {
 
   public updateRating(rating: number) {
     this.filmsService.updateCurrentFilm({ rating });
+  }
+
+  public updateArtists(artists: string[]) {
+    this.filmsService.updateCurrentFilm({ artists });
+  }
+
+  public updateDirector(director: string[]) {
+    this.filmsService.updateCurrentFilm({ director });
   }
 
   public editClickHandler() {

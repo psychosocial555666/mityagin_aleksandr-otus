@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { ShortFilmType, FilmType, FilmInputType } from 'src/common/types';
+import {
+  ShortFilmType,
+  FilmType,
+  FilmInputType,
+  ExternalFilmType,
+} from 'src/common/types';
 import { filterBySearch } from 'src/common/utils';
 import { MainService } from '../main/main.service';
-import { MODAL_TITLES, SidebarModalService } from '../sidebar-modal/sidebar-modal.service';
+import {
+  MODAL_TITLES,
+  SidebarModalService,
+} from '../sidebar-modal/sidebar-modal.service';
 import { SnackbarService } from '../snackbar/snackbar.service';
 import {
   CREATE_FILM,
@@ -21,6 +29,7 @@ export class FilmsService {
   private films: ShortFilmType[] = [];
   private filteredFilms: ShortFilmType[] = [];
   private currentFilm: FilmType | null = null;
+  public list: ExternalFilmType[] = [];
   public isDataLoading: boolean = false;
   public isPersonsLoading: boolean = false;
   constructor(
@@ -29,10 +38,7 @@ export class FilmsService {
     private snackbarService: SnackbarService,
     private mainService: MainService,
     public router: Router
-  ) {
-    this.requestFilms = this.requestFilms.bind(this);
-    this.setCurrentFilm = this.setCurrentFilm.bind(this);
-  }
+  ) {}
 
   setFilms(films: ShortFilmType[]): void {
     this.films = films;
@@ -103,7 +109,7 @@ export class FilmsService {
     this.setFiltered(filtered);
   }
 
-  requestFilmBhyId(id: string) {
+  requestFilmById(id: string) {
     this.apollo
       .query({
         query: GET_FILM_BY_ID,
@@ -130,11 +136,11 @@ export class FilmsService {
       })
       .subscribe({
         next: (value: any) => {
-          const { createFilm, error } = value.data;
-          if (createFilm) {
+          const { film, error } = value.data.createFilm;
+          if (film) {
             this.snackbarService.showSnackBar('success', 'Готово!');
-            this.setCurrentFilm(createFilm);
-            this.includeFilm(createFilm);
+            this.setCurrentFilm(film);
+            this.includeFilm(film);
           }
           if (!!error?.length) {
             this.snackbarService.showSnackBar('error', error);
@@ -154,11 +160,11 @@ export class FilmsService {
       })
       .subscribe({
         next: (value: any) => {
-          const { updateFilm, error } = value.data;
-          if (updateFilm) {
+          const { film, error } = value.data.updateFilm;
+          if (film) {
             this.snackbarService.showSnackBar('success', 'Изменено');
-            this.setCurrentFilm(updateFilm);
-            this.updateFilmsWithFilm(updateFilm);
+            this.setCurrentFilm(film);
+            this.updateFilmsWithFilm(film);
           }
           if (!!error?.length) {
             this.snackbarService.showSnackBar('error', error);
@@ -209,11 +215,29 @@ export class FilmsService {
     )
       .then((res) => res.json())
       .then((json) => {
-        const { filmId } = json.films[0];
-        this.getKinopoiskData(filmId);
-        this.getKinopoiskPersons(filmId);
+        const { films } = json;
+        const result = films.map((film: any) => ({
+          filmId: film.filmId,
+          name: film.nameRu,
+          logo: film.posterUrlPreview,
+          author: null,
+          year: film.year,
+        }));
+        this.list = result;
       })
       .catch((err) => console.log(err));
+  }
+
+  onFilmSelect(filmId: number) {
+    this.getKinopoiskData(filmId);
+    this.getKinopoiskPersons(filmId);
+    this.list = [];
+  }
+
+  onListClose() {
+    this.list = [];
+    this.isDataLoading = false;
+    this.isPersonsLoading = false;
   }
 
   getKinopoiskData(id: number) {
@@ -240,7 +264,7 @@ export class FilmsService {
           type: data.type === 'FILM' ? 'Фильм' : 'Сериал',
         };
         this.updateCurrentFilm(filmFromData);
-        if(!this.isPersonsLoading) {
+        if (!this.isPersonsLoading) {
           this.enableEdit();
         }
       })
@@ -265,8 +289,7 @@ export class FilmsService {
                 item.professionKey === 'DIRECTOR'
             )
             .map((item: { nameRu: string }) => item.nameRu)
-            .slice(0, 10)
-            .join(', '),
+            .slice(0, 10),
           artists: data
             .filter(
               (item: { professionKey: string }) =>
@@ -276,7 +299,7 @@ export class FilmsService {
             .slice(0, 10),
         };
         this.updateCurrentFilm(filmFromData);
-        if(!this.isDataLoading) {
+        if (!this.isDataLoading) {
           this.enableEdit();
         }
       })

@@ -1,0 +1,146 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.details {
+  display: flex;
+  padding-top: 1em;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.poster {
+  display: flex;
+  position: relative;
+  width: 300px;
+  height: 475px;
+  overflow: hidden;
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.image {
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  top: 10px;
+  left: 15px;
+}
+
+.button {
+  width: auto;
+  z-index: 100;
+  padding: 1em;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background-color: transparent;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+  &:hover,
+  &:focus,
+  &:active {
+    color: rgb(11, 187, 37);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.name {
+  font-size: 24px;
+  padding: 0 0 1em;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+  &:hover,
+  &:focus {
+    color: rgb(11, 187, 37);
+  }
+}
+
+.name-link {
+  font-size: 16px;
+  color: #ffffff;
+  transition: color 0.3s ease-in-out;
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    color: rgb(11, 187, 37);
+  }
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  max-width: 510px;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.songs__list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stats__item {
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 5px;
+}
+
+.date {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
+}
+
+.preview-list {
+  position: absolute;
+  top: 75px;
+  left: 2em;
+  right: 2em;
+  list-style: none;
+  padding: 4em 1em 1em;
+  margin: 0;
+  color: #f2f2f2;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #333333;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+}
+
+.list-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}

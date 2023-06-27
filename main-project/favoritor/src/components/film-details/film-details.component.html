@@ -1,4 +1,33 @@
 <div class="container">
+  <ul *ngIf="filmsService.list.length" class="preview-list">
+    <button
+      class="button list-close"
+      (click)="filmsService.onListClose()"
+      type="button"
+    >
+      <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+    </button>
+    <app-film-preview></app-film-preview>
+  </ul>
+  <div
+    class="spinner"
+    *ngIf="filmsService.isDataLoading || filmsService.isPersonsLoading"
+  >
+    <div class="lds-default">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
   <div class="buttons">
     <button
       class="button close"
@@ -19,11 +48,12 @@
       class="button link"
       type="button"
       *ngIf="filmsService.getCurrentFilm()?.name"
-      (click)="linkClickHandler()"
+      (click)="filmsService.getKinopoiskListByName()"
     >
       <ng-icon name="featherLink" size="2.5em"></ng-icon>
     </button>
   </div>
+
   <div class="details">
     <div class="stats">
       <a
@@ -58,15 +88,16 @@
       </div>
       <div class="stats__item director">
         <p class="label">Режисер:</p>
-        <a
-          class="name-link"
-          href="https://www.google.com/search?q={{
-            filmsService.getCurrentFilm()?.director
-          }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          >{{ filmsService.getCurrentFilm()?.director || "Не указано" }}</a
-        >
+        <div class="director__list">
+          <a
+            class="name-link"
+            *ngFor="let director of filmsService.getCurrentFilm()?.director"
+            href="https://www.google.com/search?q={{ director }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            >{{ director }}</a
+          >
+        </div>
       </div>
       <div class="stats__item artists">
         <p class="label">В ролях:</p>
