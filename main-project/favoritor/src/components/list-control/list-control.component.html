@@ -1,0 +1,25 @@
+<form (submit)="onSubmit($event)">
+  <label class="textfield__label list__label">
+    {{ label }}
+    <input
+      type="text"
+      name="list-input"
+      class="textfield__input"
+      [formControl]="item"
+      placeholder="{{ placeholder }}"
+    />
+    <button class="list__add" type="submit">
+      <ng-icon name="featherPlus" size="2em"></ng-icon>
+    </button>
+  </label>
+  <ul class="list">
+    <li class="item" *ngFor="let item of list">
+      <span class="item__text">
+        {{ item }}
+      </span>
+      <button class="item__delete" (click)="onDelete(item)">
+        <ng-icon name="featherXCircle" size="1.5em"></ng-icon>
+      </button>
+    </li>
+  </ul>
+</form>

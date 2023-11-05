@@ -1,0 +1,10 @@
+<div [ngClass]="sidebarModalService.isOpened ? 'overlay opened' : 'overlay'">
+  <div class="container" ngClass="">
+    <div class="header">
+      <h3 class="title">{{sidebarModalService.title}}</h3>
+    </div>
+    <div class="content">
+      <router-outlet name="modal"></router-outlet>
+    </div>
+  </div>
+</div>

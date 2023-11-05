@@ -1,0 +1,22 @@
+<header class="header">
+  <div class="header__logo">
+    <img src="../../assets/images/logo.png" alt="">
+  </div>
+  <form action="" class="header__search" (submit)="onSubmit($event)">
+    <input
+      type="search"
+      id="search"
+      name="search"
+      (search)="onSubmit($event)"
+      [formControl]="search"
+      class="search__input"
+      placeholder="Поиск..."
+    />
+    <button class="header__search-btn" type="submit">
+      <ng-icon name="featherSearch" size="1.5em"></ng-icon>
+    </button>
+  </form>
+  <button (click)="userService.logout()" class="header__user">
+    <ng-icon name="featherLogOut" size="1.5em"></ng-icon>
+  </button>
+</header>

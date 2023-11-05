@@ -1,0 +1,46 @@
+<div class="sidebar">
+  <nav class="sidebar__nav">
+    <ul class="sidebar__nav-list">
+      <li class="sidebar__nav-item">
+        <a
+          class="sidebar__link"
+          routerLink="/main/films"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <ng-icon name="featherFilm" size="2.5em"></ng-icon>
+        </a>
+      </li>
+      <li class="sidebar__nav-item">
+        <a
+          class="sidebar__link"
+          routerLink="/main/books"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <ng-icon name="featherBook" size="2.5em"></ng-icon>
+        </a>
+      </li>
+      <li class="sidebar__nav-item">
+        <a
+          class="sidebar__link"
+          routerLink="/main/albums"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <ng-icon name="featherMusic" size="2.5em"></ng-icon>
+        </a>
+      </li>
+      <li class="sidebar__nav-item sidebar__nav-item--user">
+        <a
+          class="sidebar__link"
+          routerLink="/main/user-edit"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <ng-icon name="featherUser" size="2.5em"></ng-icon>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

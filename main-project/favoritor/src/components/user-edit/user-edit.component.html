@@ -1,0 +1,51 @@
+<div class="container">
+  <form action="" class="user-edit__form" [formGroup]="userEditForm" (submit)="onSubmit()">
+    <label for="avatar" class="textfield__label user-edit__label--avatar">
+      <input
+        type="file"
+        name="avatar"
+        id="avatar"
+        (change)="onAvatarUpload($event.target)"
+        class="user-edit__avatar"
+        placeholder="фото"
+      />
+      <div class="user-edit__photo">
+          <img [src]="userService.getUser()?.avatar" alt="Avatar">
+      </div>
+    </label>
+    <label for="name" class="textfield__label">
+      <input
+        type="text"
+        name="name"
+        id="name"
+        formControlName="userName"
+        class="textfield__input"
+        placeholder="Имя пользователя"
+      />
+    </label>
+    <label for="password" class="textfield__label">
+      <input
+        type="password"
+        name="password"
+        formControlName="password"
+        placeholder="Пароль"
+        id="password"
+        class="textfield__input"
+      />
+    </label>
+    <label for="password-repeat" class="textfield__label">
+      <input
+        type="password"
+        name="password-repeat"
+        formControlName="passwordRepeat"
+        placeholder="Повторите пароль"
+        id="password-repeat"
+        class="textfield__input"
+      />
+    </label>
+    <label for="about" class="textfield__label">
+      <textarea name="about" id="about" rows="5" class="textfield__input" formControlName="about" placeholder="Обо мне"></textarea>
+    </label>
+    <button type="submit" class="button user-edit__submit">Сохранить</button>
+  </form>
+</div>

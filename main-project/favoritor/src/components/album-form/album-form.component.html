@@ -1,0 +1,144 @@
+<div class="container">
+  <form
+    action=""
+    class="album__form"
+    [formGroup]="albumEditForm"
+    (submit)="onSubmit()"
+  >
+    <div class="buttons">
+      <button class="button close" (click)="backClick()" type="button">
+        <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="!sidebarModalService.isEditing"
+        class="button edit"
+        (click)="editClickHandler()"
+        type="button"
+      >
+        <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="sidebarModalService.isEditing"
+        class="button save"
+        [disabled]="!albumEditForm.valid"
+        type="submit"
+      >
+        <ng-icon name="featherSave" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="albumsService.getCurrentAlbum()?.id !== '-1'"
+        class="button delete"
+        type="button"
+        (click)="onDelete()"
+      >
+        <ng-icon name="featherTrash2" size="2.5em"></ng-icon>
+      </button>
+    </div>
+    <div class="wrapper">
+      <div class="avatar-wrapper">
+        <label for="avatar" class="textfield__label film__label--avatar">
+          <input
+            type="file"
+            name="avatar"
+            id="avatar"
+            (change)="onLogoUpload($event.target)"
+            class="album__avatar"
+            placeholder="фото"
+          />
+          <div class="album__photo">
+            <img
+              [src]="albumsService.getCurrentAlbum()?.logo"
+              *ngIf="albumsService.getCurrentAlbum()?.logo"
+              alt="Logo"
+              class="image"
+            />
+            <img
+              src="../../assets/images/no-image.jpg"
+              *ngIf="!albumsService.getCurrentAlbum()?.logo"
+              alt="Logo"
+              class="image"
+            />
+          </div>
+        </label>
+      </div>
+      <div class="fields-wrapper">
+        <span
+          >Рейтинг:
+          <app-rating
+            [id]="albumsService.getCurrentAlbum()?.id || ''"
+            [rating]="albumsService.getCurrentAlbum()?.rating || 0"
+            (changeRatingEvent)="updateRating($event)"
+          ></app-rating
+        ></span>
+        <label for="name" class="textfield__label">
+          Название
+          <input
+            type="text"
+            name="name"
+            formControlName="name"
+            id="name"
+            class="textfield__input"
+            placeholder="Название"
+          />
+          <div
+            class="error-message"
+            *ngIf="albumEditForm.controls.name.errors?.['required']"
+          >
+            Обязательное поле
+          </div>
+        </label>
+        <label for="year" class="textfield__label">
+          Год выпуска
+          <input
+            type="text"
+            name="year"
+            placeholder="Год выпуска"
+            formControlName="year"
+            id="year"
+            class="textfield__input"
+          />
+        </label>
+        <label for="genre" class="textfield__label">
+          Жанр
+          <input
+            type="text"
+            name="genre"
+            placeholder="Жанр"
+            formControlName="genre"
+            id="genre"
+            class="textfield__input"
+          />
+        </label>
+        <label for="author" class="textfield__label">
+          Композитор
+          <input
+            type="text"
+            name="author"
+            placeholder="Композитор"
+            id="author"
+            formControlName="author"
+            class="textfield__input"
+          />
+        </label>
+        <app-list-control
+          [list]="albumsService.getCurrentAlbum()?.songs || []"
+          [placeholder]="'Название композиции'"
+          [label]="'Список композиций'"
+          (changeListEvent)="updateSongs($event)"
+        ></app-list-control>
+      </div>
+    </div>
+    
+    <label for="impressions" class="textfield__label">
+      Впечатления
+      <textarea
+        name="impressions"
+        id="impressions"
+        formControlName="impressions"
+        rows="5"
+        class="textfield__input"
+        placeholder="Впечатления"
+      ></textarea>
+    </label>
+  </form>
+</div>

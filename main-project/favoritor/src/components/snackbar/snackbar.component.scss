@@ -1,0 +1,80 @@
+@keyframes slide {
+  0% {
+    right: -500px;
+  }
+  70% {
+    right: 60px;
+  }
+  90% {
+    right: 45px;
+  }
+  100% {
+    right: 50px;
+  }
+}
+@keyframes fadeout {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  bottom: 50px;
+  right: 50px;
+  z-index: 100000;
+}
+
+.snackbar {
+  display: flex;
+  position: relative;
+  right: 0;
+  align-items: center;
+  gap: 1em;
+  padding: 1em 2em;
+  border-radius: 0.7em;
+  color: #ffffff;
+  animation: slide 0.6s ease-in-out, fadeout 0.5s ease-in-out 2.5s;
+  font-size: 18px;
+  transition: all 0.3s ease-in-out;
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+}
+
+.close {
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  padding: 0.5em;
+  border-radius: 3px;
+  margin: 0;
+  font-size: inherit;
+  font-family: inherit;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #ffffff2f;
+  }
+}
+
+.error {
+  background-color: rgba(218, 55, 14, 0.806);
+}
+
+.success {
+  background-color: rgba(67, 200, 10, 0.721);
+}
+
+.warning {
+  background-color: rgba(237, 134, 9, 0.906);
+}

@@ -1,0 +1,38 @@
+<app-add-film></app-add-film>
+<div class="container" *ngFor="let film of filmsService.getFiltered()">
+  <div class="card">
+    <img [src]="film?.logo" *ngIf="film?.logo" alt="Logo" class="image" />
+    <img
+      src="../../assets/images/no-image.jpg"
+      *ngIf="!film?.logo"
+      alt="Logo"
+      class="image"
+    />
+    <div class="content">
+      <div class="stats">
+        <a
+          class="title"
+          href="https://www.google.com/search?q={{ film?.name }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ film?.name }}</a
+        >
+        <app-rating-info [rating]="film?.rating || 0"></app-rating-info>
+        <div class="details">
+          <span *ngIf="film?.country">{{ film?.country }} | </span
+          ><span *ngIf="film?.genre">{{ film?.genre }}</span>
+        </div>
+        <div class="date">
+          <span>Добавлено {{ film?.createdAt | date : "dd.MM.YYYY" }}</span>
+        </div>
+      </div>
+    </div>
+    <a
+      class="more"
+      [routerLink]="['', { outlets: { modal: ['film', film?.id] } }]"
+      (click)="openFilmCardHandler(film?.id)"
+    >
+      Подробнее
+    </a>
+  </div>
+</div>

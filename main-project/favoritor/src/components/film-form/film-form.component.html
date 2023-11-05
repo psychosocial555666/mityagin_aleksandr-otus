@@ -1,0 +1,160 @@
+<div class="container">
+  <form
+    action=""
+    class="film__form"
+    [formGroup]="filmEditForm"
+    (submit)="onSubmit()"
+  >
+    <div class="buttons">
+      <button class="button close" (click)="backClick()" type="button">
+        <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="!sidebarModalService.isEditing"
+        class="button edit"
+        (click)="editClickHandler()"
+        type="button"
+      >
+        <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="sidebarModalService.isEditing"
+        class="button save"
+        [disabled]="!filmEditForm.valid"
+        type="submit"
+      >
+        <ng-icon name="featherSave" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="filmsService.getCurrentFilm()?.id !== '-1'"
+        class="button delete"
+        type="button"
+        (click)="onDelete()"
+      >
+        <ng-icon name="featherTrash2" size="2.5em"></ng-icon>
+      </button>
+    </div>
+    <div class="wrapper">
+      <div class="avatar-wrapper">
+        <label for="avatar" class="textfield__label film__label--avatar">
+          <input
+            type="file"
+            name="avatar"
+            id="avatar"
+            (change)="onLogoUpload($event.target)"
+            class="film__avatar"
+            placeholder="фото"
+          />
+          <div class="film__photo">
+            <img
+              [src]="filmsService.getCurrentFilm()?.logo"
+              *ngIf="filmsService.getCurrentFilm()?.logo"
+              alt="Logo"
+              class="image"
+            />
+            <img
+              src="../../assets/images/no-image.jpg"
+              *ngIf="!filmsService.getCurrentFilm()?.logo"
+              alt="Logo"
+              class="image"
+            />
+          </div>
+        </label>
+      </div>
+      <div class="fields-wrapper">
+        <span
+          >Рейтинг:
+          <app-rating
+            [id]="filmsService.getCurrentFilm()?.id || ''"
+            [rating]="filmsService.getCurrentFilm()?.rating || 0"
+            (changeRatingEvent)="updateRating($event)"
+          ></app-rating
+        ></span>
+        <label for="name" class="textfield__label">
+          Название
+          <input
+            type="text"
+            name="name"
+            formControlName="name"
+            class="textfield__input"
+            id="name"
+            placeholder="Название"
+          />
+          <div
+            class="error-message"
+            *ngIf="filmEditForm.controls.name.errors?.['required']"
+          >
+            Обязательное поле
+          </div>
+        </label>
+        <label for="type" class="textfield__label">
+          Тип
+          <input
+            type="text"
+            name="type"
+            placeholder="Тип"
+            formControlName="type"
+            id="type"
+            class="textfield__input"
+          />
+        </label>
+        <label for="genre" class="textfield__label">
+          Жанр
+          <input
+            type="text"
+            name="genre"
+            placeholder="Жанр"
+            formControlName="genre"
+            id="genre"
+            class="textfield__input"
+          />
+        </label>
+        <label for="country" class="textfield__label">
+          Страна
+          <input
+            type="text"
+            name="country"
+            placeholder="Страна"
+            formControlName="country"
+            id="country"
+            class="textfield__input"
+          />
+        </label>
+        <app-list-control
+          [list]="filmsService.getCurrentFilm()?.director || []"
+          [placeholder]="'Имя режисера'"
+          [label]="'Режисер(ы)'"
+          (changeListEvent)="updateDirector($event)"
+        ></app-list-control>
+        <app-list-control
+          [list]="filmsService.getCurrentFilm()?.artists || []"
+          [placeholder]="'Имя актера'"
+          [label]="'В ролях'"
+          (changeListEvent)="updateArtists($event)"
+        ></app-list-control>
+      </div>
+    </div>
+    <label for="description" class="textfield__label">
+      Описание
+      <textarea
+        name="description"
+        id="description"
+        formControlName="description"
+        rows="5"
+        class="textfield__input"
+        placeholder="Описание"
+      ></textarea>
+    </label>
+    <label for="impressions" class="textfield__label">
+      Впечатления
+      <textarea
+        name="impressions"
+        id="impressions"
+        formControlName="impressions"
+        rows="5"
+        class="textfield__input"
+        placeholder="Впечатления"
+      ></textarea>
+    </label>
+  </form>
+</div>

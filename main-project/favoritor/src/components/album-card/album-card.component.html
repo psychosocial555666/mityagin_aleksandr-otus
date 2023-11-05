@@ -1,0 +1,41 @@
+<app-album-add></app-album-add>
+<div class="container" *ngFor="let album of albumsService.getFiltered()">
+  <div class="card">
+    <img [src]="album?.logo" *ngIf="album?.logo" alt="Logo" class="image" />
+    <img
+      src="../../assets/images/no-image.jpg"
+      *ngIf="!album?.logo"
+      alt="Logo"
+      class="image"
+    />
+    <div class="content">
+      <div class="stats">
+        <a
+          class="title"
+          href="https://www.google.com/search?q={{ album?.name }} {{
+            album?.author
+          }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          >{{ album?.name }}</a
+        >
+        <app-rating-info [rating]="album?.rating || 0"></app-rating-info>
+        <div class="details">
+          <span *ngIf="album?.author">{{ album?.author }} | </span
+          ><span *ngIf="album?.genre">{{ album?.genre }} | </span
+          ><span *ngIf="album?.genre">{{ album?.year }}</span>
+        </div>
+        <div class="date">
+          <span>Добавлено {{ album?.createdAt | date : "dd.MM.YYYY" }}</span>
+        </div>
+      </div>
+    </div>
+    <a
+      class="more"
+      [routerLink]="['', { outlets: { modal: ['album', album?.id] } }]"
+      (click)="openAlbumCardHandler(album?.id)"
+    >
+      Подробнее
+    </a>
+  </div>
+</div>

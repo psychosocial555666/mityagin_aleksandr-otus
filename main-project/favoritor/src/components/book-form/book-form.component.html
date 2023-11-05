@@ -1,0 +1,137 @@
+<div class="container">
+  <form
+    action=""
+    class="book__form"
+    [formGroup]="bookEditForm"
+    (submit)="onSubmit()"
+  >
+    <div class="buttons">
+      <button class="button close" (click)="backClick()" type="button">
+        <ng-icon name="featherXCircle" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="!sidebarModalService.isEditing"
+        class="button edit"
+        (click)="editClickHandler()"
+        type="button"
+      >
+        <ng-icon name="featherEdit" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="sidebarModalService.isEditing"
+        class="button save"
+        [disabled]="!bookEditForm.valid"
+        type="submit"
+      >
+        <ng-icon name="featherSave" size="2.5em"></ng-icon>
+      </button>
+      <button
+        *ngIf="booksService.getCurrentBook()?.id !== '-1'"
+        class="button delete"
+        type="button"
+        (click)="onDelete()"
+      >
+        <ng-icon name="featherTrash2" size="2.5em"></ng-icon>
+      </button>
+    </div>
+    <div class="wrapper">
+      <div class="avatar-wrapper">
+        <label for="avatar" class="textfield__label film__label--avatar">
+          <input
+            type="file"
+            name="avatar"
+            id="avatar"
+            (change)="onLogoUpload($event.target)"
+            class="book__avatar"
+            placeholder="фото"
+          />
+          <div class="book__photo">
+            <img
+              [src]="booksService.getCurrentBook()?.logo"
+              *ngIf="booksService.getCurrentBook()?.logo"
+              alt="Logo"
+              class="image"
+            />
+            <img
+              src="../../assets/images/no-image.jpg"
+              *ngIf="!booksService.getCurrentBook()?.logo"
+              alt="Logo"
+              class="image"
+            />
+          </div>
+        </label>
+      </div>
+      <div class="fields-wrapper">
+        <span
+          >Рейтинг:
+          <app-rating
+            [id]="booksService.getCurrentBook()?.id || ''"
+            [rating]="booksService.getCurrentBook()?.rating || 0"
+            (changeRatingEvent)="updateRating($event)"
+          ></app-rating
+        ></span>
+        <label for="name" class="textfield__label">
+          Название
+          <input
+            type="text"
+            name="name"
+            formControlName="name"
+            id="name"
+            class="textfield__input"
+            placeholder="Название"
+          />
+          <div
+            class="error-message"
+            *ngIf="bookEditForm.controls.name.errors?.['required']"
+          >
+            Обязательное поле
+          </div>
+        </label>
+        <label for="genre" class="textfield__label">
+          Жанр
+          <input
+            type="text"
+            name="genre"
+            placeholder="Жанр"
+            formControlName="genre"
+            id="genre"
+            class="textfield__input"
+          />
+        </label>
+        <label for="author" class="textfield__label">
+          Автор
+          <input
+            type="text"
+            name="author"
+            placeholder="Автор"
+            id="author"
+            formControlName="author"
+            class="textfield__input"
+          />
+        </label>
+      </div>
+    </div>
+    <label for="description" class="textfield__label">
+      Описание
+      <textarea
+        name="description"
+        id="description"
+        formControlName="description"
+        rows="5"
+        class="textfield__input"
+        placeholder="Описание"
+      ></textarea>
+    </label>
+    <label for="impressions" class="textfield__label">
+      Впечатления
+      <textarea
+        name="impressions"
+        id="impressions"
+        formControlName="impressions"
+        rows="5"
+        class="textfield__input"
+        placeholder="Впечатления"
+      ></textarea>
+    </label>
+  </form>
+</div>

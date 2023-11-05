@@ -1,0 +1,48 @@
+:host {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  animation: fadein 0.5s ease-in-out;
+  height: 100%;
+  background-image: url(../../assets/images/image.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 7em 0 0;
+}
+
+.user-edit__avatar {
+  display: none;
+}
+
+.user-edit__photo {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 50%;
+  img {
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.user-edit__form {
+  display: flex;
+  padding: 2em;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+  width: 30%;
+}
+
+.user-edit__label--avatar {
+  width: auto;
+}
